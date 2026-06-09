@@ -1,0 +1,48 @@
+"use client";
+
+import { motion } from "framer-motion";
+import CountUp from "./CountUp";
+
+const stats = [
+  { value: 15, label: "Projects Built", suffix: "+" },
+  { value: 8, label: "Technologies Learned", suffix: "+" },
+  { value: 500, label: "Hours of Learning", suffix: "+" },
+  { value: 10, label: "AI Tools Used", suffix: "+" },
+];
+
+function StatItem({ value, label, suffix, index }: { value: number; label: string; suffix: string; index: number }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.5, delay: index * 0.08 }}
+      whileHover={{ y: -4, scale: 1.02 }}
+      className="glass-hover rounded-2xl p-6 md:p-7 text-center group"
+    >
+      <span className="text-4xl md:text-5xl font-bold bg-gradient-to-b from-white to-gray-300 bg-clip-text text-transparent mb-2 block">
+        <CountUp from={0} to={value} duration={2} />
+        {suffix}
+      </span>
+      <div className="text-xs md:text-sm text-gray-500 group-hover:text-gray-400 transition-colors">
+        {label}
+      </div>
+    </motion.div>
+  );
+}
+
+export default function Stats() {
+  return (
+    <section id="stats" className="py-16 md:py-20 px-6 relative">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent" />
+
+      <div className="max-w-6xl mx-auto">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+          {stats.map((stat, index) => (
+            <StatItem key={stat.label} {...stat} index={index} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
