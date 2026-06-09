@@ -4,6 +4,18 @@ import { motion } from "framer-motion";
 
 const projects = [
   {
+    title: "Grahbook",
+    tagline: "WhatsApp Commerce for Indian Merchants",
+    description:
+      "Built from the ground up as a full commerce platform for local Indian merchants who run their business through WhatsApp. The problem: small shops in India rely entirely on WhatsApp to chat with customers, but have no way to manage orders, payments, or inventory within the app. Grahbook turns any WhatsApp number into an AI-powered store — customers can browse catalogs, place orders, and pay via UPI without ever leaving the chat. The landing page features a WhatsApp phone mockup with live chat simulation, dark/light theme, and real-time merchant dashboard preview. The React dashboard shows AI-powered ledger entries, automated revenue tracking, and a bento-grid metrics layout — all animated with Framer Motion.",
+    tech: ["React", "TypeScript", "Vite", "Framer Motion", "Firebase", "TailwindCSS"],
+    gradient: "from-emerald-700/30 via-green-600/20 to-teal-600/20",
+    accent: "bg-emerald-500",
+    liveUrl: "https://grahbook.vercel.app",
+    githubUrl: "https://github.com/darkpanther5667/grahbook",
+    metrics: ["WhatsApp Commerce", "AI Ledger", "UPI Payments"],
+  },
+  {
     title: "FormLabs",
     tagline: "Visual drag-and-drop form builder",
     description:
