@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import BackgroundEffects from "./BackgroundEffects";
+import ThreeBackground from "./ThreeBackground";
 import FloatingProjectCards from "./FloatingProjectCards";
 import MouseGlow from "./MouseGlow";
 import MagneticButton from "./MagneticButton";
@@ -13,6 +14,7 @@ export default function Hero() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       <BackgroundEffects />
+      <ThreeBackground />
       <MouseGlow />
 
       <div

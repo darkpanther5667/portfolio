@@ -2,6 +2,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
 import SmoothScroll, { ScrollProgress } from "@/components/SmoothScroll";
+import Terminal from "@/components/Terminal";
+import AIChat from "@/components/AIChat";
 
 export default function MainLayout({
   children,
@@ -14,6 +16,8 @@ export default function MainLayout({
       <ScrollProgress />
       <Navbar />
       <SmoothScroll>{children}</SmoothScroll>
+      <Terminal />
+      <AIChat />
       <Footer />
     </>
   );
