@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useDesktopEffects } from "@/lib/use-desktop-effects";
 
 function Starfield() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -77,6 +78,8 @@ function Starfield() {
 }
 
 export default function BackgroundEffects() {
+  const isDesktop = useDesktopEffects();
+
   return (
     <>
       {/* Deep ambient gradient */}
@@ -111,7 +114,7 @@ export default function BackgroundEffects() {
       </div>
 
       {/* Starfield */}
-      <Starfield />
+      {isDesktop ? <Starfield /> : null}
     </>
   );
 }

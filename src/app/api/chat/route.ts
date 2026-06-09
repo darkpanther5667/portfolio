@@ -1,3 +1,5 @@
+import { profile } from "@/lib/profile";
+
 export const maxDuration = 30;
 
 export async function POST(req: Request) {
@@ -12,7 +14,7 @@ export async function POST(req: Request) {
   if (!apiKey) {
     return Response.json({
       reply:
-        "Hey! This AI chat needs an OpenRouter API key to work. Drop me an email at hello@example.com in the meantime!",
+        "Hey! This AI chat needs an OpenRouter API key to work. Use the contact section or GitHub in the meantime!",
     });
   }
 
@@ -33,13 +35,14 @@ export async function POST(req: Request) {
             content: `You are an AI assistant for a developer's portfolio website. You help visitors learn about the developer.
 
 About the developer:
+- Name: ${profile.name}
 - Role: AI Product Builder & Full Stack Developer
 - Skills: Next.js, TypeScript, React, Node.js, PostgreSQL, Prisma, AI/LLM integration, TailwindCSS, Framer Motion
 - Current projects: FormLabs (visual form builder), CodeSnap (AI code screenshot tool), JEE OS (AI exam prep)
 - Services: Web app development, AI integration, full-stack consulting
 - Process: Discovery → Design & Prototype → Build & Iterate → Deliver & Deploy
 - Availability: Open for freelance work, free consultation available
-- Contact: hello@example.com, GitHub: darkpanther5667
+- Contact: GitHub: ${profile.githubHandle}
 
 Rules:
 - Be enthusiastic and helpful
@@ -60,7 +63,7 @@ Rules:
     if (!res.ok) {
       console.error("OpenRouter error:", data);
       return Response.json({
-        reply: "The AI service is temporarily unavailable. Please email me at hello@example.com!",
+        reply: "The AI service is temporarily unavailable. Please use the contact section or GitHub.",
       });
     }
 
@@ -69,7 +72,7 @@ Rules:
   } catch (err) {
     console.error("AI chat error:", err);
     return Response.json(
-      { reply: "Sorry, I hit a hiccup! Please try again or email me at hello@example.com." },
+      { reply: "Sorry, I hit a hiccup! Please try again or use the contact section." },
       { status: 500 }
     );
   }

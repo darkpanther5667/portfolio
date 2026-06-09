@@ -13,12 +13,20 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio | AI Builder & Full Stack Developer",
+  title: "Manas Agrawal | AI Product Builder & Full Stack Developer",
   description:
-    "Building intelligent products with code and AI. Portfolio of a future startup founder and product builder.",
+    "Manas Agrawal builds intelligent web products, AI tools, and polished digital experiences with a product-first mindset.",
   openGraph: {
-    title: "Portfolio | AI Builder & Full Stack Developer",
-    description: "Building intelligent products with code and AI.",
+    title: "Manas Agrawal | AI Product Builder & Full Stack Developer",
+    description:
+      "Portfolio of Manas Agrawal, focused on shipping intelligent products with code and AI.",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Manas Agrawal | AI Product Builder & Full Stack Developer",
+    description:
+      "Portfolio of Manas Agrawal, focused on shipping intelligent products with code and AI.",
   },
 };
 

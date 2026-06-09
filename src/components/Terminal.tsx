@@ -2,6 +2,8 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { profile } from "@/lib/profile";
+import { useDesktopEffects } from "@/lib/use-desktop-effects";
 
 type CommandHandler = (args: string[]) => string | React.ReactNode;
 
@@ -54,11 +56,11 @@ const commands: Record<string, { desc: string; handler: CommandHandler }> = {
     handler: () => (
       <div>
         <p className="text-accent/80 font-semibold mb-2">Featured Projects:</p>
-        <div className="space-y-2">
-          <div>
-            <span className="text-emerald-400 font-mono">FormLabs</span>
-            <span className="text-gray-500 ml-2">— Visual drag-and-drop form builder</span>
-          </div>
+          <div className="space-y-2">
+            <div>
+              <span className="text-emerald-400 font-mono">FormLabs</span>
+              <span className="text-gray-500 ml-2">— Visual drag-and-drop form builder</span>
+            </div>
           <div>
             <span className="text-sky-400 font-mono">CodeSnap</span>
             <span className="text-gray-500 ml-2">— AI-powered code screenshot tool</span>
@@ -68,7 +70,7 @@ const commands: Record<string, { desc: string; handler: CommandHandler }> = {
             <span className="text-gray-500 ml-2">— AI exam prep platform (in dev)</span>
           </div>
         </div>
-        <p className="text-gray-600 text-xs mt-2">Type "open formlabs" or "open codesnap" to visit.</p>
+        <p className="text-gray-600 text-xs mt-2">Type &quot;open formlabs&quot; or &quot;open codesnap&quot; to visit.</p>
       </div>
     ),
   },
@@ -84,7 +86,7 @@ const commands: Record<string, { desc: string; handler: CommandHandler }> = {
         if (typeof window !== "undefined") window.open("https://codesnap-eta.vercel.app", "_blank");
         return <span className="text-sky-400">Opening CodeSnap...</span>;
       }
-      return <span className="text-red-400">Unknown project. Try "formlabs" or "codesnap".</span>;
+      return <span className="text-red-400">Unknown project. Try &quot;formlabs&quot; or &quot;codesnap&quot;.</span>;
     },
   },
   contact: {
@@ -93,18 +95,17 @@ const commands: Record<string, { desc: string; handler: CommandHandler }> = {
       <div>
         <p className="text-accent/80 font-semibold mb-2">Contact:</p>
         <p className="text-gray-400">
-          Email:{" "}
-          <a href="mailto:hello@example.com" className="text-accent hover:underline">
-            hello@example.com
-          </a>
-        </p>
-        <p className="text-gray-400">
           GitHub:{" "}
-          <a href="https://github.com/darkpanther5667" target="_blank" className="text-accent hover:underline">
-            darkpanther5667
+          <a
+            href={profile.githubUrl}
+            className="text-accent hover:underline"
+            target="_blank"
+            rel="noreferrer"
+          >
+            {profile.githubHandle}
           </a>
         </p>
-        <p className="text-gray-500 text-xs mt-2">Type "hire" to start a conversation.</p>
+        <p className="text-gray-500 text-xs mt-2">Use the contact section or project links to start a conversation.</p>
       </div>
     ),
   },
@@ -113,34 +114,22 @@ const commands: Record<string, { desc: string; handler: CommandHandler }> = {
     handler: () => (
       <div>
         <p className="text-emerald-400 font-semibold mb-2">
-          🚀 Great choice! Here's how to hire me:
+          Great choice. Here&apos;s the fastest way to reach Manas:
         </p>
         <p className="text-gray-300 mb-3">
-          1. <span className="text-accent">Email me</span> at hello@example.com with your project details
+          1. <span className="text-accent">Review the live products</span> to see the quality bar
         </p>
         <p className="text-gray-300 mb-3">
-          2. <span className="text-accent">Schedule a free call</span> — we discuss scope, timeline, and budget
+          2. <span className="text-accent">Open GitHub</span> to inspect the code and project history
         </p>
         <p className="text-gray-300 mb-3">
-          3. I ship your product in <span className="text-accent">weekly iterations</span>
+          3. Reach out through the contact section with your idea, timeline, and goals
         </p>
         <p className="text-gray-500 text-xs">
-          Or type "email" to pre-fill a message right now.
+          Keep it short and concrete. The best conversations start with the problem you want solved.
         </p>
       </div>
     ),
-  },
-  email: {
-    desc: "Pre-fill a hiring email",
-    handler: () => {
-      const subject = encodeURIComponent("Let's work together");
-      const body = encodeURIComponent(
-        "Hi,\n\nI came across your portfolio and I'm impressed by your work. I'd like to discuss a project.\n\nBrief: [describe your project]\nTimeline: [your timeline]\nBudget: [your budget]\n\nLooking forward to hearing from you."
-      );
-      if (typeof window !== "undefined")
-        window.open(`mailto:hello@example.com?subject=${subject}&body=${body}`, "_blank");
-      return <span className="text-emerald-400">Opening email draft...</span>;
-    },
   },
   clear: {
     desc: "Clear the terminal",
@@ -178,6 +167,7 @@ interface TerminalLine {
 }
 
 export default function Terminal() {
+  const isDesktop = useDesktopEffects();
   const [open, setOpen] = useState(false);
   const [lines, setLines] = useState<TerminalLine[]>([
     {
@@ -227,6 +217,10 @@ export default function Terminal() {
   useEffect(() => {
     if (open) setTimeout(() => inputRef.current?.focus(), 100);
   }, [open]);
+
+  if (!isDesktop) {
+    return null;
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -327,7 +321,9 @@ export default function Terminal() {
                 <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60" />
                 <div className="w-2.5 h-2.5 rounded-full bg-green-500/60" />
               </div>
-              <span className="text-xs text-gray-600 font-mono ml-2">developer@portfolio:~$</span>
+              <span className="text-xs text-gray-600 font-mono ml-2">
+                {profile.name.toLowerCase().replace(/\s+/g, ".")}@portfolio:~$
+              </span>
               <div className="flex-1" />
               <span className="text-[10px] text-gray-700 font-mono">Interactive Terminal</span>
             </div>

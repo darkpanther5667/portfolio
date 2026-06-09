@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <span className="text-sm text-gray-500">
-            &copy; {year} Portfolio
+            &copy; {year} Manas Agrawal
           </span>
           <span className="text-gray-700/50">/</span>
           <span className="text-xs text-gray-600">

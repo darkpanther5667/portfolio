@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { profile } from "@/lib/profile";
 import BackgroundEffects from "./BackgroundEffects";
 import ThreeBackground from "./ThreeBackground";
 import FloatingProjectCards from "./FloatingProjectCards";
@@ -39,14 +40,14 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.15 }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass mb-8 group hover:bg-white/[0.06] transition-colors"
+          className="inline-flex max-w-full items-center gap-2 px-4 py-1.5 rounded-full glass mb-7 group hover:bg-white/[0.06] transition-colors"
         >
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
           </span>
-          <span className="text-sm text-gray-300 font-medium tracking-wide">
-            AI Product Builder  &bull;  Full Stack Developer
+          <span className="text-xs sm:text-sm text-gray-300 font-medium tracking-wide">
+            {profile.name} &bull; {profile.role}
           </span>
         </motion.div>
 
@@ -62,7 +63,7 @@ export default function Hero() {
               delay: 0.25,
               ease: [0.16, 1, 0.3, 1],
             }}
-            className="text-[clamp(2.8rem,10vw,7.5rem)] font-bold tracking-[-0.04em] leading-[0.88] mb-8"
+            className="text-[clamp(2.4rem,10vw,7.5rem)] font-bold tracking-[-0.04em] leading-[0.92] mb-6"
           >
             <span className="block">Building intelligent</span>
             <span className="block">
@@ -79,20 +80,20 @@ export default function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="text-base sm:text-lg text-gray-400 max-w-xl mx-auto mb-12 leading-relaxed"
+          className="text-sm sm:text-base md:text-lg text-gray-400 max-w-xl mx-auto mb-10 sm:mb-12 leading-relaxed"
         >
           I design, build, and deploy modern web applications, AI-powered
-          tools, and digital products.
+          tools, and polished digital products.
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.5 }}
-          className="flex flex-wrap justify-center gap-4"
+          className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4"
         >
           <MagneticButton href="#projects">
-            <div className="relative px-8 py-3.5 bg-accent text-white rounded-full font-medium text-sm overflow-hidden transition-all duration-300 hover:shadow-[0_0_35px_-5px_rgba(59,130,246,0.5)] active:scale-95 cursor-pointer">
+            <div className="relative w-full sm:w-auto px-8 py-3.5 bg-accent text-white rounded-full font-medium text-sm overflow-hidden transition-all duration-300 hover:shadow-[0_0_35px_-5px_rgba(59,130,246,0.5)] active:scale-95 cursor-pointer">
               <span className="relative z-10">View Projects</span>
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
               <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent opacity-0 hover:opacity-100 transition-opacity" />
@@ -100,7 +101,7 @@ export default function Hero() {
           </MagneticButton>
 
           <MagneticButton href="#contact">
-            <div className="px-8 py-3.5 glass text-gray-200 rounded-full font-medium text-sm transition-all duration-300 hover:bg-white/[0.08] active:scale-95 cursor-pointer border border-white/10 hover:border-accent/30">
+            <div className="w-full sm:w-auto px-8 py-3.5 glass text-gray-200 rounded-full font-medium text-sm transition-all duration-300 hover:bg-white/[0.08] active:scale-95 cursor-pointer border border-white/10 hover:border-accent/30">
               Get In Touch
             </div>
           </MagneticButton>

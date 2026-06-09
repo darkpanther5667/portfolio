@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { motion, useSpring, useMotionValue } from "framer-motion";
+import { useDesktopEffects } from "@/lib/use-desktop-effects";
 
 export default function MouseGlow() {
+  const isDesktop = useDesktopEffects();
   const mouseX = useMotionValue(-400);
   const mouseY = useMotionValue(-400);
 
@@ -11,6 +13,10 @@ export default function MouseGlow() {
   const springY = useSpring(mouseY, { stiffness: 80, damping: 25 });
 
   useEffect(() => {
+    if (!isDesktop) {
+      return;
+    }
+
     const handleMouseMove = (e: MouseEvent) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
@@ -25,7 +31,11 @@ export default function MouseGlow() {
         window.removeEventListener("mousemove", handleMouseMove);
       }
     };
-  }, [mouseX, mouseY]);
+  }, [mouseX, mouseY, isDesktop]);
+
+  if (!isDesktop) {
+    return null;
+  }
 
   return (
     <motion.div

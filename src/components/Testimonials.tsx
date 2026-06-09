@@ -1,19 +1,20 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { profile } from "@/lib/profile";
 
 const reasons = [
   {
-    title: "I ship real products",
-    desc: "FormLabs and CodeSnap are live, deployed, and usable right now. I don't do todo apps or tutorial projects — everything I build solves an actual problem.",
+    title: "Real products, not demos",
+    desc: "FormLabs and CodeSnap are live, deployed, and usable right now. The portfolio is built around evidence, not claims.",
   },
   {
     title: "Full ownership, end to end",
-    desc: "Design, architecture, backend, frontend, deployment — I handle it. You don't need a team, just one person who can wear every hat.",
+    desc: "Design, architecture, backend, frontend, deployment — Manas handles the whole chain and keeps momentum intact.",
   },
   {
-    title: "Communication is part of the build",
-    desc: "You get regular updates in plain English, not engineering jargon. No guesswork, no surprise delays, no vanishing acts.",
+    title: "Communication stays simple",
+    desc: "Updates stay in plain English, progress stays visible, and the project stays easy to follow.",
   },
 ];
 
@@ -31,12 +32,12 @@ export default function WhyMe() {
           className="mb-12 md:mb-14 text-center"
         >
           <span className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-3 block">
-            Why Me
+            Proof
           </span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1]">
             Why work with{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-light">
-              me
+              {profile.name}
             </span>
           </h2>
         </motion.div>

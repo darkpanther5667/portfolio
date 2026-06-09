@@ -1,32 +1,26 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { profile } from "@/lib/profile";
 
 const timeline = [
   {
     year: "2024",
     title: "Started Web Development",
     description:
-      "Began my journey with HTML, CSS, and JavaScript, building my first websites and discovering the power of the web.",
+      "Began with HTML, CSS, and JavaScript, then moved quickly into building responsive interfaces and small production-ready tools.",
   },
   {
     year: "2025",
-    title: "Exploring AI & Full Stack",
+    title: "Shipping Full Stack Products",
     description:
-      "Dove into React, Next.js, Node.js, and started integrating AI APIs into my projects to build smarter applications.",
+      "Expanded into React, Next.js, Node.js, and full-stack delivery while learning how to turn ideas into something people can actually use.",
   },
   {
     year: "2026",
     title: "Building AI Products",
     description:
-      "Shipping real-world AI-powered applications — from study tools to intelligent platforms that solve real problems.",
-  },
-  {
-    year: "Future",
-    title: "Launching Real Startups",
-    description:
-      "Building products that make a real impact. The best is yet to come.",
-    future: true,
+      "Now focused on AI-powered products like FormLabs, CodeSnap, and Grahbook with a product-first mindset.",
   },
 ];
 
@@ -47,15 +41,14 @@ export default function About() {
             About
           </span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-5 leading-[1.1]">
-            Passionate about{" "}
+            About{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-light">
-              technology
-            </span>{" "}
-            and building.
+              {profile.name}
+            </span>
           </h2>
           <p className="text-gray-400 text-lg max-w-3xl leading-relaxed">
-            I&apos;m a student passionate about software development, AI tools,
-            product building, and entrepreneurship.
+            I&apos;m {profile.name}, focused on building modern web products, AI tools,
+            and polished experiences that feel useful from the first interaction.
           </p>
         </motion.div>
 
@@ -81,20 +74,14 @@ export default function About() {
                   whileInView={{ scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 + 0.1, type: "spring", stiffness: 200 }}
-                  className={`absolute left-0 md:left-1 top-0.5 w-[26px] h-[26px] md:w-[34px] md:h-[34px] rounded-full border-[3px] border-black z-10 flex items-center justify-center ${
-                    item.future ? "bg-accent-light/40" : "bg-accent"
-                  }`}
+                  className={`absolute left-0 md:left-1 top-0.5 w-[26px] h-[26px] md:w-[34px] md:h-[34px] rounded-full border-[3px] border-black z-10 flex items-center justify-center bg-accent`}
                 >
-                  <div className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-full ${item.future ? "bg-accent-light" : "bg-white"}`} />
+                  <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-white" />
                 </motion.div>
 
-                <div className={`glass-hover rounded-xl p-5 md:p-6 ${item.future ? "border-accent/20" : ""}`}>
+                <div className="glass-hover rounded-xl p-5 md:p-6">
                   <span
-                    className={`inline-block px-3 py-1 rounded-full text-xs font-mono mb-3 ${
-                      item.future
-                        ? "bg-accent/10 text-accent-light border border-accent/20"
-                        : "bg-white/[0.04] text-accent border border-white/[0.06]"
-                    }`}
+                    className="inline-block px-3 py-1 rounded-full text-xs font-mono mb-3 bg-white/[0.04] text-accent border border-white/[0.06]"
                   >
                     {item.year}
                   </span>

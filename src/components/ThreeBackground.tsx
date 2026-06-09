@@ -1,11 +1,17 @@
 "use client";
 
 import { useRef, useEffect } from "react";
+import { useDesktopEffects } from "@/lib/use-desktop-effects";
 
 export default function ThreeBackground() {
+  const isDesktop = useDesktopEffects();
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
+    if (!isDesktop) {
+      return;
+    }
+
     let animationId: number;
     let mouseX = 0;
     let mouseY = 0;
@@ -26,12 +32,12 @@ export default function ThreeBackground() {
         antialias: true,
       });
       renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 
       camera.position.z = 30;
 
       // --- Particles ---
-      const particleCount = 600;
+      const particleCount = 300;
       const positions = new Float32Array(particleCount * 3);
       const colors = new Float32Array(particleCount * 3);
 
@@ -55,8 +61,12 @@ export default function ThreeBackground() {
       scene.add(particles);
 
       // --- Geometric Shapes ---
-      const shapes: any[] = [];
-      const shapeData: { speed: number; rotSpeed: any; initialPos: any }[] = [];
+      const shapes: Array<import("three").Mesh> = [];
+      const shapeData: Array<{
+        speed: number;
+        rotSpeed: import("three").Vector3;
+        initialPos: import("three").Vector3;
+      }> = [];
 
       const geometries = [
         new THREE.IcosahedronGeometry(0.8, 0),
@@ -212,7 +222,11 @@ export default function ThreeBackground() {
     return () => {
       cleanup.then((fn) => fn?.());
     };
-  }, []);
+  }, [isDesktop]);
+
+  if (!isDesktop) {
+    return null;
+  }
 
   return (
     <canvas

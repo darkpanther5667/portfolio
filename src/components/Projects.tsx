@@ -47,8 +47,8 @@ const projects = [
     tech: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "AI"],
     gradient: "from-blue-600/20 via-purple-600/20 to-pink-600/20",
     accent: "bg-blue-500",
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "",
+    githubUrl: "",
     metrics: ["In Development", "AI Powered", "Full Stack"],
   },
   {
@@ -59,13 +59,16 @@ const projects = [
     tech: ["React", "Node.js", "OpenAI", "PostgreSQL", "Redis"],
     gradient: "from-emerald-600/20 via-teal-600/20 to-cyan-600/20",
     accent: "bg-emerald-500",
-    liveUrl: "#",
-    githubUrl: "#",
+    liveUrl: "",
+    githubUrl: "",
     metrics: ["In Development", "Smart Scheduling", "Adaptive"],
   },
 ];
 
 function ProjectCard({ project, index }: { project: (typeof projects)[0]; index: number }) {
+  const liveAvailable = Boolean(project.liveUrl);
+  const sourceAvailable = Boolean(project.githubUrl);
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -141,24 +144,36 @@ function ProjectCard({ project, index }: { project: (typeof projects)[0]; index:
           </div>
 
           <div className="flex gap-3">
-            <a
-              href={project.liveUrl}
-              className="relative px-5 py-2.5 bg-accent text-white text-sm font-medium rounded-full overflow-hidden transition-all duration-300 hover:shadow-[0_0_25px_-5px_rgba(59,130,246,0.4)] active:scale-95 group/btn"
-            >
-              <span className="relative z-10">Live Demo</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-500" />
-            </a>
-            <a
-              href={project.githubUrl}
-              className="px-5 py-2.5 glass text-gray-300 text-sm font-medium rounded-full transition-all duration-300 hover:bg-white/10 hover:text-white active:scale-95 border border-white/10"
-            >
-              <span className="flex items-center gap-2">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-                </svg>
-                Source
+            {liveAvailable ? (
+              <a
+                href={project.liveUrl}
+                className="relative px-5 py-2.5 bg-accent text-white text-sm font-medium rounded-full overflow-hidden transition-all duration-300 hover:shadow-[0_0_25px_-5px_rgba(59,130,246,0.4)] active:scale-95 group/btn"
+              >
+                <span className="relative z-10">Live Demo</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-500" />
+              </a>
+            ) : (
+              <span className="px-5 py-2.5 rounded-full text-sm font-medium bg-white/[0.03] text-gray-500 border border-white/[0.06]">
+                Coming Soon
               </span>
-            </a>
+            )}
+            {sourceAvailable ? (
+              <a
+                href={project.githubUrl}
+                className="px-5 py-2.5 glass text-gray-300 text-sm font-medium rounded-full transition-all duration-300 hover:bg-white/10 hover:text-white active:scale-95 border border-white/10"
+              >
+                <span className="flex items-center gap-2">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                  </svg>
+                  Source
+                </span>
+              </a>
+            ) : (
+              <span className="px-5 py-2.5 rounded-full text-sm font-medium bg-white/[0.03] text-gray-500 border border-white/[0.06]">
+                Private
+              </span>
+            )}
           </div>
         </div>
       </motion.div>

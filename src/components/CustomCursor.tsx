@@ -2,12 +2,12 @@
 
 import { useEffect, useRef, useCallback } from "react";
 import { motion, useSpring, useMotionValue } from "framer-motion";
+import { useDesktopEffects } from "@/lib/use-desktop-effects";
 
 export default function CustomCursor() {
+  const isDesktop = useDesktopEffects();
   const cursorRef = useRef<HTMLDivElement>(null);
   const ringRef = useRef<HTMLDivElement>(null);
-  const isVisible = useRef(false);
-  const isHovering = useRef(false);
 
   const mouseX = useMotionValue(-100);
   const mouseY = useMotionValue(-100);
@@ -31,7 +31,6 @@ export default function CustomCursor() {
       'a, button, [data-cursor-interactive], input, textarea, select, [role="button"]'
     );
     if (interactive) {
-      isHovering.current = true;
       document.body.style.cursor = "none";
       if (ringRef.current) {
         ringRef.current.style.width = "48px";
@@ -45,7 +44,6 @@ export default function CustomCursor() {
         cursorRef.current.style.backgroundColor = "#60A5FA";
       }
     } else {
-      isHovering.current = false;
       document.body.style.cursor = "none";
       if (ringRef.current) {
         ringRef.current.style.width = "28px";
@@ -82,7 +80,9 @@ export default function CustomCursor() {
   }, []);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    if (!isDesktop) {
+      return;
+    }
 
     document.body.style.cursor = "none";
 
@@ -98,18 +98,11 @@ export default function CustomCursor() {
       document.removeEventListener("mouseenter", handleMouseEnterDoc);
       document.body.style.cursor = "auto";
     };
-  }, [handleMouseMove, handleMouseOver, handleMouseLeaveDoc, handleMouseEnterDoc]);
+  }, [handleMouseMove, handleMouseOver, handleMouseLeaveDoc, handleMouseEnterDoc, isDesktop]);
 
-  // Hide on touch devices
-  useEffect(() => {
-    const checkTouch = () => {
-      if ("ontouchstart" in window) {
-        if (cursorRef.current) cursorRef.current.style.display = "none";
-        if (ringRef.current) ringRef.current.style.display = "none";
-      }
-    };
-    checkTouch();
-  }, []);
+  if (!isDesktop) {
+    return null;
+  }
 
   return (
     <>

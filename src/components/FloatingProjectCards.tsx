@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useDesktopEffects } from "@/lib/use-desktop-effects";
 
 const cards = [
   {
@@ -128,6 +129,12 @@ function Card({
 }
 
 export default function FloatingProjectCards() {
+  const isDesktop = useDesktopEffects();
+
+  if (!isDesktop) {
+    return null;
+  }
+
   return (
     <>
       {cards.map((card) => (

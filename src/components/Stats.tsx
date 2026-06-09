@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 import CountUp from "./CountUp";
 
 const stats = [
-  { value: 15, label: "Projects Built", suffix: "+" },
-  { value: 8, label: "Technologies Learned", suffix: "+" },
-  { value: 500, label: "Hours of Learning", suffix: "+" },
-  { value: 10, label: "AI Tools Used", suffix: "+" },
+  { value: 3, label: "Live Products", suffix: "+" },
+  { value: 2, label: "Active Builds", suffix: "+" },
+  { value: 3, label: "Core Services", suffix: "+" },
+  { value: 1, label: "AI-First Focus", suffix: "" },
 ];
 
 function StatItem({ value, label, suffix, index }: { value: number; label: string; suffix: string; index: number }) {

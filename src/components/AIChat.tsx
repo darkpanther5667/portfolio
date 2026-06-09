@@ -2,6 +2,8 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { profile } from "@/lib/profile";
+import { useDesktopEffects } from "@/lib/use-desktop-effects";
 
 interface Message {
   role: "user" | "assistant";
@@ -9,12 +11,13 @@ interface Message {
 }
 
 export default function AIChat() {
+  const isDesktop = useDesktopEffects();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
       content:
-        "Hi! I'm the portfolio AI assistant. Ask me anything about the developer, their skills, projects, or how to hire them.",
+        `Hi! I'm the portfolio AI assistant. Ask me anything about ${profile.name}, his skills, projects, or how to work together.`,
     },
   ]);
   const [input, setInput] = useState("");
@@ -29,6 +32,10 @@ export default function AIChat() {
   useEffect(() => {
     if (open) setTimeout(() => inputRef.current?.focus(), 200);
   }, [open]);
+
+  if (!isDesktop) {
+    return null;
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -56,7 +63,7 @@ export default function AIChat() {
         ...prev,
         {
           role: "assistant",
-          content: "Sorry, I hit an error! You can email hello@example.com directly.",
+          content: "Sorry, I hit an error! Use the contact section or GitHub to reach Manas directly.",
         },
       ]);
     }

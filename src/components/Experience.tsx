@@ -4,29 +4,28 @@ import { motion } from "framer-motion";
 
 const journey = [
   {
-    year: "2025",
-    title: "Started Web Development",
+    year: "Product",
+    title: "Builder-first mindset",
     description:
-      "Began with HTML, CSS, and JavaScript fundamentals. Built my first responsive websites and explored the world of frontend development.",
+      "I start with the user problem, then shape the interface and architecture around what actually needs to ship.",
     gradient: "from-blue-500/20 to-purple-500/20",
     count: "01",
   },
   {
-    year: "2026",
-    title: "Building AI Products",
+    year: "Stack",
+    title: "Full-stack execution",
     description:
-      "Combining full-stack development with AI to build intelligent applications. Exploring Next.js, APIs, and modern tooling.",
+      "I move comfortably across frontend, backend, and deployment, which makes it easier to keep momentum while iterating.",
     gradient: "from-purple-500/20 to-pink-500/20",
     count: "02",
   },
   {
-    year: "Future",
-    title: "Launching Real Startups",
+    year: "AI",
+    title: "Shipping intelligence",
     description:
-      "Taking ideas to production. Building real products, solving real problems, and making a dent in the universe.",
+      "I add AI where it helps the product, not as decoration. That keeps the experience useful, fast, and focused.",
     gradient: "from-pink-500/20 to-blue-500/20",
     count: "03",
-    future: true,
   },
 ];
 
@@ -42,12 +41,12 @@ export default function Experience() {
           className="mb-12 md:mb-14"
         >
           <span className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-3 block">
-            Journey
+            What I Bring
           </span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1]">
-            Learning{" "}
+            How I{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-light">
-              journey
+              build
             </span>
           </h2>
         </motion.div>
@@ -67,22 +66,16 @@ export default function Experience() {
               className="relative"
             >
               <motion.div
-                whileHover={{ y: -6, scale: 1.01 }}
-                transition={{ type: "spring", stiffness: 200, damping: 20 }}
-                className={`glass-hover rounded-2xl p-6 md:p-7 h-full flex flex-col ${
-                  item.future ? "border-accent/20" : ""
-                }`}
+              whileHover={{ y: -6, scale: 1.01 }}
+              transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                className="glass-hover rounded-2xl p-6 md:p-7 h-full flex flex-col"
               >
                 <span className="text-5xl md:text-6xl font-bold text-white/[0.03] leading-none mb-2 select-none">
                   {item.count}
                 </span>
 
                 <div
-                  className={`inline-flex self-start items-center px-3 py-1 rounded-full text-xs font-mono mb-4 ${
-                    item.future
-                      ? "bg-accent/10 text-accent-light border border-accent/20"
-                      : "bg-white/[0.04] text-gray-400 border border-white/[0.06]"
-                  }`}
+                  className="inline-flex self-start items-center px-3 py-1 rounded-full text-xs font-mono mb-4 bg-white/[0.04] text-gray-400 border border-white/[0.06]"
                 >
                   {item.year}
                 </div>

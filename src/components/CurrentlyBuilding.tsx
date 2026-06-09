@@ -1,12 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { profile } from "@/lib/profile";
 
 const projects = [
   {
     name: "JEE OS",
     description:
-      "Building a comprehensive AI-powered platform to help students prepare for JEE with personalized learning paths and real-time analytics.",
+      "A focused AI-powered study platform for JEE prep with personalized learning paths and analytics.",
     status: "Active Development",
     statusColor: "bg-accent",
     gradient: "from-blue-500/10 via-purple-500/10 to-pink-500/10",
@@ -15,7 +16,7 @@ const projects = [
   {
     name: "AI Study Planner",
     description:
-      "Developing an intelligent scheduler that adapts to your learning patterns and optimizes study time using reinforcement learning.",
+      "An adaptive planner concept that reshapes study sessions based on learning patterns and progress.",
     status: "Active Development",
     statusColor: "bg-accent",
     gradient: "from-emerald-500/10 via-teal-500/10 to-cyan-500/10",
@@ -24,7 +25,7 @@ const projects = [
   {
     name: "CodeSnap",
     description:
-      "AI-powered code screenshot tool now live — syntax highlighting, 4 themes, PNG export with 2x resolution, and AI code explanations.",
+      "Live code screenshot tool with syntax highlighting, 4 themes, PNG export, and AI explanations.",
     status: "Recently Launched",
     statusColor: "bg-emerald-500",
     gradient: "from-sky-500/10 via-blue-500/10 to-indigo-500/10",
@@ -33,7 +34,7 @@ const projects = [
   {
     name: "FormLabs",
     description:
-      "A visual drag-and-drop form builder now live — add 11 field types, configure properties in real-time, and export clean HTML or React code.",
+      "A visual drag-and-drop form builder with 11 field types, live configuration, and clean export.",
     status: "Recently Launched",
     statusColor: "bg-emerald-500",
     gradient: "from-emerald-500/10 via-teal-500/10 to-cyan-500/10",
@@ -115,10 +116,11 @@ export default function CurrentlyBuilding() {
             Currently Building
           </span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1]">
-            What I&apos;m working on{" "}
+            What{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-light">
-              right now
+              {profile.name}
             </span>
+            {" "}is shipping now
           </h2>
         </motion.div>
 

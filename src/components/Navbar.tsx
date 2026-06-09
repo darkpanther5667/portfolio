@@ -42,7 +42,7 @@ export default function Navbar() {
           className="text-lg font-semibold tracking-tight hover:text-accent transition-colors group"
         >
           <span className="group-hover:text-accent transition-colors">
-            Portfolio
+            Manas Agrawal
           </span>
           <span className="text-accent">.</span>
         </a>
