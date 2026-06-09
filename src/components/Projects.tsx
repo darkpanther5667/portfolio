@@ -7,7 +7,7 @@ const projects = [
     title: "FormLabs",
     tagline: "Visual drag-and-drop form builder",
     description:
-      "A browser-based form builder that lets you drag, drop, and configure form fields in real-time. Export clean HTML or React code with a single click. Built with native HTML5 Drag and Drop API — no extra dependencies.",
+      "Built from scratch when I needed a faster way to ship forms for client projects. The problem: hand-coding every form field, styling, and state management was killing productivity. FormLabs lets you drag fields onto a canvas, configure properties in real-time, and export clean HTML or React code in one click. Used HTML5 Drag and Drop API — zero external dependencies for the core interaction. Ships complete forms with proper labels, validation, and state handling.",
     tech: ["Next.js", "TypeScript", "Framer Motion", "highlight.js"],
     gradient: "from-emerald-600/20 via-teal-600/20 to-cyan-600/20",
     accent: "bg-emerald-500",
@@ -19,7 +19,7 @@ const projects = [
     title: "CodeSnap",
     tagline: "AI-powered code screenshot tool",
     description:
-      "A beautiful code screenshot tool with syntax highlighting, multiple themes, and AI-powered code explanations. Write or paste code, choose your style, and export stunning PNG screenshots perfect for sharing on social media, presentations, or documentation.",
+      "I noticed developers spend time manually formatting code for social media posts and presentations. CodeSnap solves this with a live code editor (CodeMirror), syntax highlighting via highlight.js, and one-click PNG export at 2x resolution. Added an AI explain feature using GPT-4o-mini for when you need to quickly understand or present someone else's code. Four themes (Dark, Light, Nord, Monokai) cover the major presentation styles developers actually use.",
     tech: ["Next.js", "TypeScript", "CodeMirror", "AI", "html-to-image"],
     gradient: "from-sky-600/20 via-blue-600/20 to-indigo-600/20",
     accent: "bg-sky-500",
@@ -29,39 +29,27 @@ const projects = [
   },
   {
     title: "JEE OS",
-    tagline: "AI-powered exam preparation platform",
+    tagline: "AI-powered exam preparation platform (in development)",
     description:
-      "A comprehensive OS-like platform for JEE preparation with AI-powered study recommendations, real-time progress tracking, personalized learning paths, and mock test analytics. Built to handle thousands of concurrent users with sub-100ms response times.",
+      "Currently building a comprehensive OS-like platform for JEE preparation. Focused on AI-powered study recommendations, real-time progress tracking, and personalized learning paths. The architecture uses Next.js with PostgreSQL and Prisma for the data layer, with AI recommendations powered by OpenAI.",
     tech: ["Next.js", "TypeScript", "PostgreSQL", "Prisma", "AI"],
     gradient: "from-blue-600/20 via-purple-600/20 to-pink-600/20",
     accent: "bg-blue-500",
     liveUrl: "#",
     githubUrl: "#",
-    metrics: ["1.2k+ Users", "99.9% Uptime", "<100ms Latency"],
+    metrics: ["In Development", "AI Powered", "Full Stack"],
   },
   {
     title: "AI Study Planner",
-    tagline: "Smart scheduling powered by artificial intelligence",
+    tagline: "Smart scheduling with AI (in development)",
     description:
-      "An intelligent study planner using AI to create optimized study schedules based on your learning style, goals, and available time. Adapts in real-time as you progress, identifies weak areas, and adjusts the curriculum.",
+      "An intelligent study planner concept that uses AI to create optimized study schedules based on your learning patterns. The idea is to adapt in real-time as you progress, identifying weak areas and adjusting the curriculum automatically.",
     tech: ["React", "Node.js", "OpenAI", "PostgreSQL", "Redis"],
     gradient: "from-emerald-600/20 via-teal-600/20 to-cyan-600/20",
     accent: "bg-emerald-500",
     liveUrl: "#",
     githubUrl: "#",
-    metrics: ["AI-Powered", "Real-time Sync", "Smart Alerts"],
-  },
-  {
-    title: "Startup Landing Page",
-    tagline: "High-conversion marketing template",
-    description:
-      "A premium landing page template for startups launching their MVP. Features A/B testing, analytics integration, smooth page transitions, SEO optimization, and modular components. 95+ Lighthouse scores.",
-    tech: ["Next.js", "Framer Motion", "TailwindCSS", "Vercel", "MDX"],
-    gradient: "from-violet-600/20 via-indigo-600/20 to-blue-600/20",
-    accent: "bg-violet-500",
-    liveUrl: "#",
-    githubUrl: "#",
-    metrics: ["98% A11y", "95+ LH", "0.3s FCP"],
+    metrics: ["In Development", "Smart Scheduling", "Adaptive"],
   },
 ];
 
