@@ -1,26 +1,21 @@
-import { TwitterApi } from "twitter-api-v2";
 import { readFileSync, writeFileSync, existsSync } from "fs";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const CONSUMER_KEY = process.env.X_CONSUMER_KEY;
-const CONSUMER_SECRET = process.env.X_CONSUMER_SECRET;
-const ACCESS_TOKEN = process.env.X_ACCESS_TOKEN;
-const ACCESS_SECRET = process.env.X_ACCESS_SECRET;
+const API_KEY = process.env.TYPEFULLY_API_KEY;
+const SOCIAL_SET_ID = process.env.TYPEFULLY_SOCIAL_SET_ID;
 
-if (!CONSUMER_KEY || !CONSUMER_SECRET || !ACCESS_TOKEN || !ACCESS_SECRET) {
-  console.error("Missing X API credentials in environment variables");
+if (!API_KEY) {
+  console.error("Missing TYPEFULLY_API_KEY environment variable");
   process.exit(1);
 }
 
-const client = new TwitterApi({
-  appKey: CONSUMER_KEY,
-  appSecret: CONSUMER_SECRET,
-  accessToken: ACCESS_TOKEN,
-  accessSecret: ACCESS_SECRET,
-});
+if (!SOCIAL_SET_ID) {
+  console.error("Missing TYPEFULLY_SOCIAL_SET_ID environment variable");
+  process.exit(1);
+}
 
 const TWEETS_FILE = join(__dirname, "tweets.md");
 const STATE_FILE = join(__dirname, ".tweet-state.json");
@@ -56,6 +51,40 @@ function getNextIndex(tweets) {
   return next;
 }
 
+async function postToTypefully(text) {
+  const body = {
+    platforms: {
+      x: {
+        enabled: true,
+        posts: [{ text }],
+        settings: {},
+      },
+    },
+    draft_title: `Auto post ${new Date().toISOString().slice(0, 10)}`,
+    publish_at: "next-free-slot",
+    share: false,
+  };
+
+  const response = await fetch(
+    `https://api.typefully.com/v2/social-sets/${SOCIAL_SET_ID}/drafts`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    }
+  );
+
+  if (!response.ok) {
+    const err = await response.text();
+    throw new Error(`Typefully API error (${response.status}): ${err}`);
+  }
+
+  return response.json();
+}
+
 async function main() {
   const tweets = parseTweets();
 
@@ -67,13 +96,15 @@ async function main() {
   const nextIndex = getNextIndex(tweets);
   const text = tweets[nextIndex];
 
-  console.log(`Posting tweet ${nextIndex + 1}/${tweets.length}: ${text.slice(0, 60)}...`);
+  console.log(`Scheduling tweet ${nextIndex + 1}/${tweets.length}: ${text.slice(0, 60)}...`);
 
   try {
-    const response = await client.v2.tweet(text);
-    console.log(`Posted! Tweet ID: ${response.data.id}`);
+    const result = await postToTypefully(text);
+    console.log(`Scheduled! Draft ID: ${result.id}`);
+    console.log(`Status: ${result.status}`);
+    console.log(`Scheduled for: ${result.scheduled_date || "next-free-slot"}`);
   } catch (err) {
-    console.error("Failed to post tweet:", err.message);
+    console.error("Failed to schedule tweet:", err.message);
     process.exit(1);
   }
 }
