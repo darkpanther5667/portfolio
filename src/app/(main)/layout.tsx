@@ -15,7 +15,9 @@ export default function MainLayout({
       <CustomCursor />
       <ScrollProgress />
       <Navbar />
-      <SmoothScroll>{children}</SmoothScroll>
+      <main id="main-content">
+        <SmoothScroll>{children}</SmoothScroll>
+      </main>
       <Terminal />
       <AIChat />
       <Footer />

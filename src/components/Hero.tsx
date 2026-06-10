@@ -65,6 +65,9 @@ export default function Hero() {
             }}
             className="text-[clamp(2.4rem,10vw,7.5rem)] font-bold tracking-[-0.04em] leading-[0.92] mb-6"
           >
+            <span className="block text-base sm:text-lg md:text-xl font-medium tracking-normal text-accent mb-2">
+              {profile.name}
+            </span>
             <span className="block">Building intelligent</span>
             <span className="block">
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-accent-light to-white">
