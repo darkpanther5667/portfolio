@@ -16,6 +16,9 @@ export const metadata: Metadata = {
   title: "Manas Agrawal | AI Product Builder & Full Stack Developer",
   description:
     "Manas Agrawal builds intelligent web products, AI tools, and polished digital experiences with a product-first mindset.",
+  verification: {
+    google: "825mM0Z27U8hXNy9nHH4de7Ql2EzC39Z3G-qSrpinHc",
+  },
   openGraph: {
     title: "Manas Agrawal | AI Product Builder & Full Stack Developer",
     description:
