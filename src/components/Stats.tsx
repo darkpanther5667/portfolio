@@ -3,17 +3,15 @@
 import CountUp from "./CountUp";
 
 const stats = [
-  { value: 3, label: "Live Products", suffix: "+" },
-  { value: 2, label: "Active Builds", suffix: "+" },
-  { value: 3, label: "Core Services", suffix: "+" },
-  { value: 1, label: "AI-First Focus", suffix: "" },
+  { value: 3, label: "Products Shipped", suffix: "+" },
+  { value: 2, label: "In Development", suffix: "" },
+  { value: 4, label: "Open Source Repos", suffix: "" },
+  { value: 1, label: "Year Building", suffix: "+" },
 ];
 
 function StatItem({ value, label, suffix, index }: { value: number; label: string; suffix: string; index: number }) {
   return (
-    <div
-      className="glass-hover rounded-2xl p-6 md:p-7 text-center group"
-    >
+    <div className="glass-hover rounded-2xl p-6 md:p-7 text-center group">
       <span className="text-4xl md:text-5xl font-bold bg-gradient-to-b from-white to-gray-300 bg-clip-text text-transparent mb-2 block">
         <CountUp from={0} to={value} duration={2} />
         {suffix}
