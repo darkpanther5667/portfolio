@@ -1,12 +1,23 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { profile } from "@/lib/profile";
-import BackgroundEffects from "./BackgroundEffects";
-import ThreeBackground from "./ThreeBackground";
-import FloatingProjectCards from "./FloatingProjectCards";
-import MouseGlow from "./MouseGlow";
 import MagneticButton from "./MagneticButton";
+
+const ThreeBackground = dynamic(
+  () => import("./ThreeBackground"),
+  { ssr: false }
+);
+const FloatingProjectCards = dynamic(
+  () => import("./FloatingProjectCards"),
+  { ssr: false }
+);
+const BackgroundEffects = dynamic(
+  () => import("./BackgroundEffects"),
+  { ssr: false }
+);
+const MouseGlow = dynamic(() => import("./MouseGlow"), { ssr: false });
 
 export default function Hero() {
   return (
@@ -123,7 +134,7 @@ export default function Hero() {
           transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
           className="flex flex-col items-center gap-2"
         >
-          <span className="text-[9px] uppercase tracking-[0.25em] text-gray-600/80 font-mono">
+          <span className="text-[9px] uppercase tracking-[0.25em] text-gray-400/70 font-mono">
             Scroll
           </span>
           <div className="w-4 h-7 rounded-full border border-white/15 flex items-start justify-center pt-1.5">

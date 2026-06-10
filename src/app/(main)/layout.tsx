@@ -1,9 +1,18 @@
+"use client";
+
+import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import CustomCursor from "@/components/CustomCursor";
+
+const CustomCursor = dynamic(
+  () => import("@/components/CustomCursor"),
+  { ssr: false }
+);
+const Terminal = dynamic(() => import("@/components/Terminal"), {
+  ssr: false,
+});
+const AIChat = dynamic(() => import("@/components/AIChat"), { ssr: false });
 import SmoothScroll, { ScrollProgress } from "@/components/SmoothScroll";
-import Terminal from "@/components/Terminal";
-import AIChat from "@/components/AIChat";
 
 export default function MainLayout({
   children,
