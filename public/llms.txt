@@ -12,7 +12,7 @@ Manas Agrawal is an AI Product Builder & Full Stack Developer focused on buildin
 
 ## Links
 
-- Website: https://portfolio-manasagrawal.vercel.app
+- Website: https://manasagrawal.online
 - GitHub: https://github.com/darkpanther5667
 - X/Twitter: https://x.com/agrawalmanas150
 - LinkedIn: https://www.linkedin.com/in/manas-agrawal-2b0352320/

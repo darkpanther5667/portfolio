@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const BASE_URL = "https://portfolio-manasagrawal.vercel.app";
+const BASE_URL = "https://manasagrawal.online";
 
 export const viewport: Viewport = {
   width: "device-width",

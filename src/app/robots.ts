@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/api/"],
     },
-    sitemap: "https://portfolio-manasagrawal.vercel.app/sitemap.xml",
+    sitemap: "https://manasagrawal.online/sitemap.xml",
   };
 }

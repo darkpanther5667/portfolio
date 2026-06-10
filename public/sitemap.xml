@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>https://portfolio-manasagrawal.vercel.app</loc>
+<loc>https://manasagrawal.online</loc>
 <lastmod>2026-06-10</lastmod>
 <changefreq>monthly</changefreq>
 <priority>1.0</priority>
 </url>
 <url>
-<loc>https://portfolio-manasagrawal.vercel.app/codesnap</loc>
+<loc>https://manasagrawal.online/codesnap</loc>
 <lastmod>2026-06-10</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
 </url>
 <url>
-<loc>https://portfolio-manasagrawal.vercel.app/formlabs</loc>
+<loc>https://manasagrawal.online/formlabs</loc>
 <lastmod>2026-06-10</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.7</priority>
