@@ -55,6 +55,8 @@ export const metadata: Metadata = {
     title: "Manas Agrawal | AI Product Builder & Full Stack Developer",
     description:
       "Portfolio of Manas Agrawal, focused on shipping intelligent products with code and AI.",
+    site: "@agrawalmanas150",
+    creator: "@agrawalmanas150",
   },
   icons: {
     icon: "/favicon.ico",
@@ -71,7 +73,11 @@ const jsonLdPerson = {
   description:
     "Manas Agrawal builds intelligent web products, AI tools, and polished digital experiences with a product-first mindset.",
   url: BASE_URL,
-  sameAs: ["https://github.com/darkpanther5667"],
+  sameAs: [
+    "https://github.com/darkpanther5667",
+    "https://x.com/agrawalmanas150",
+    "https://www.linkedin.com/in/manas-agrawal-2b0352320/",
+  ],
 };
 
 const jsonLdWebSite = {
