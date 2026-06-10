@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import MagneticButton from "./MagneticButton";
 import { profile } from "@/lib/profile";
 
@@ -34,12 +33,7 @@ export default function Contact() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-accent/3 blur-[120px] rounded-full pointer-events-none" />
 
       <div className="max-w-4xl mx-auto text-center relative">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        >
+        <div>
           <span className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-5 block">
             Contact
           </span>
@@ -56,15 +50,9 @@ export default function Contact() {
           <p className="text-gray-400 text-base md:text-lg max-w-xl mx-auto mb-10 leading-relaxed">
             Have a project in mind? Start with the work that already exists, then send a clear brief through the links below.
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="flex flex-wrap justify-center gap-4"
-        >
+        <div className="flex flex-wrap justify-center gap-4">
           {links.map((link) => (
             <MagneticButton key={link.label} href={link.href}>
               <div className="inline-flex items-center gap-2.5 px-6 py-3 glass text-gray-300 rounded-full text-sm font-medium transition-all duration-300 hover:bg-white/[0.08] border border-white/10 hover:border-accent/30 hover:text-white cursor-pointer active:scale-95">
@@ -73,7 +61,7 @@ export default function Contact() {
               </div>
             </MagneticButton>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

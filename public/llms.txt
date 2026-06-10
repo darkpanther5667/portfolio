@@ -1,0 +1,53 @@
+# Manas Agrawal
+
+> AI Product Builder & Full Stack Developer. Builds intelligent web products, AI tools, and polished digital experiences with a product-first mindset.
+
+## About
+
+Manas Agrawal is an AI Product Builder & Full Stack Developer focused on building modern web applications, AI-powered tools, and polished digital experiences.
+
+- Started Web Development in 2024 (HTML, CSS, JavaScript)
+- Expanded to Full Stack (React, Next.js, Node.js) in 2025
+- Building AI Products in 2026 (FormLabs, CodeSnap, Grahbook)
+
+## Links
+
+- Website: https://portfolio-manasagrawal.vercel.app
+- GitHub: https://github.com/darkpanther5667
+- X/Twitter: https://x.com/agrawalmanas150
+- LinkedIn: https://www.linkedin.com/in/manas-agrawal-2b0352320/
+
+## Projects
+
+### Grahbook
+WhatsApp Commerce for Indian Merchants. Turns any WhatsApp number into an AI-powered store — customers can browse catalogs, place orders, and pay via UPI without leaving the chat.
+- URL: https://grahbook.vercel.app
+- Tech: React, TypeScript, Vite, Firebase, TailwindCSS
+
+### FormLabs
+Visual drag-and-drop form builder. Drag fields onto a canvas, configure properties, and export clean HTML or React code.
+- URL: https://formlabs-eight.vercel.app
+- Tech: Next.js, TypeScript, Framer Motion
+
+### CodeSnap
+AI-powered code screenshot tool. Live code editor, syntax highlighting, 4 themes, PNG export, and AI code explanations.
+- URL: https://codesnap-eta.vercel.app
+- Tech: Next.js, TypeScript, CodeMirror, AI
+
+### JEE OS
+AI-powered exam preparation platform with personalized learning paths and analytics (in development).
+- Tech: Next.js, TypeScript, PostgreSQL, Prisma, AI
+
+### AI Study Planner
+Adaptive study planner that creates optimized schedules based on learning patterns (in development).
+- Tech: React, Node.js, OpenAI, PostgreSQL
+
+## Services
+
+- **Web Apps**: Full-stack web applications with Next.js, React, TypeScript. From MVPs to production.
+- **AI Integration**: GPT-powered features, code analysis, smart recommendations, automated workflows.
+- **Full-Stack Consulting**: Architecture reviews, code audits, technical direction.
+
+## Tech Stack
+
+JavaScript, TypeScript, React, Next.js, Node.js, Prisma, PostgreSQL, TailwindCSS, Vercel, OpenAI, Claude AI, Git, Docker

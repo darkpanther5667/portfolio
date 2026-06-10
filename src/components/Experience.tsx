@@ -33,13 +33,7 @@ export default function Experience() {
   return (
     <section id="journey" className="py-24 md:py-28 px-6">
       <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-12 md:mb-14"
-        >
+        <div className="mb-12 md:mb-14">
           <span className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-3 block">
             What I Bring
           </span>
@@ -49,20 +43,12 @@ export default function Experience() {
               build
             </span>
           </h2>
-        </motion.div>
+        </div>
 
         <div className="grid md:grid-cols-3 gap-5 md:gap-6">
           {journey.map((item, index) => (
-            <motion.div
+            <div
               key={item.year}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{
-                duration: 0.6,
-                delay: index * 0.12,
-                ease: [0.16, 1, 0.3, 1],
-              }}
               className="relative"
             >
               <motion.div
@@ -89,7 +75,7 @@ export default function Experience() {
               {index < journey.length - 1 && (
                 <div className="hidden md:block absolute top-14 -right-4 w-8 h-px bg-gradient-to-r from-accent/30 to-transparent" />
               )}
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

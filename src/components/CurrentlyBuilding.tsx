@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { profile } from "@/lib/profile";
 
 const projects = [
@@ -44,16 +43,7 @@ const projects = [
 
 function BuildingCard({ project, index }: { project: (typeof projects)[0]; index: number }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{
-        duration: 0.6,
-        delay: index * 0.1,
-        ease: [0.16, 1, 0.3, 1],
-      }}
-      whileHover={{ y: -3 }}
+    <div
       className="group"
     >
       <div className="glass-hover rounded-xl p-5 md:p-6 h-full border border-white/[0.04] group-hover:border-white/[0.1] transition-colors relative overflow-hidden">
@@ -95,7 +85,7 @@ function BuildingCard({ project, index }: { project: (typeof projects)[0]; index
           </div>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -105,13 +95,7 @@ export default function CurrentlyBuilding() {
       <div className="absolute inset-0 bg-gradient-to-b from-accent/[0.015] via-transparent to-accent/[0.015] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-12 md:mb-14"
-        >
+        <div className="mb-12 md:mb-14">
           <span className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-3 block">
             Currently Building
           </span>
@@ -122,7 +106,7 @@ export default function CurrentlyBuilding() {
             </span>
             {" "}is shipping now
           </h2>
-        </motion.div>
+        </div>
 
         <div className="grid md:grid-cols-2 gap-4 md:gap-5">
           {projects.map((project, index) => (

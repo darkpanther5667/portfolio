@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 
 const technologies = [
   "JavaScript", "TypeScript", "React", "Next.js", "Node.js",
@@ -8,16 +7,8 @@ const technologies = [
   "Claude AI", "Git", "Docker",
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: { staggerChildren: 0.03, delayChildren: 0.1 },
-  },
-};
-
 const pillVariants = {
-  hidden: { opacity: 0, scale: 0.8, y: 10 },
+  hidden: { opacity: 1, scale: 1, y: 0 },
   show: { opacity: 1, scale: 1, y: 0 },
 };
 
@@ -27,13 +18,7 @@ export default function TechStack() {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/[0.01] to-transparent pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-12 text-center"
-        >
+        <div className="mb-12 text-center">
           <span className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-3 block">
             Tech Stack
           </span>
@@ -43,35 +28,21 @@ export default function TechStack() {
               work with
             </span>
           </h2>
-        </motion.div>
+        </div>
 
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-80px" }}
-          className="flex flex-wrap justify-center gap-3 max-w-3xl mx-auto"
-        >
+        <div className="flex flex-wrap justify-center gap-3 max-w-3xl mx-auto">
           {technologies.map((tech) => (
-            <motion.div
+            <div
               key={tech}
-              variants={pillVariants}
-              whileHover={{
-                scale: 1.08,
-                y: -4,
-                backgroundColor: "rgba(255, 255, 255, 0.08)",
-                borderColor: "rgba(59, 130, 246, 0.3)",
-                transition: { type: "spring", stiffness: 400, damping: 15 },
-              }}
-              className="px-4 py-2.5 rounded-full border border-white/[0.06] cursor-default"
+              className="px-4 py-2.5 rounded-full border border-white/[0.06] cursor-default hover:scale-105 hover:-translate-y-1 transition-all duration-200"
               style={{ backgroundColor: "rgba(255, 255, 255, 0.03)" }}
             >
               <span className="text-sm md:text-base text-gray-200 font-medium">
                 {tech}
               </span>
-            </motion.div>
+            </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

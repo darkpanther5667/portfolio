@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 
 const steps = [
   {
@@ -31,13 +30,7 @@ export default function Process() {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/[0.01] to-transparent pointer-events-none" />
 
       <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-12 md:mb-14"
-        >
+        <div className="mb-12 md:mb-14">
           <span className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-3 block">
             How I Work
           </span>
@@ -47,17 +40,12 @@ export default function Process() {
               production
             </span>
           </h2>
-        </motion.div>
+        </div>
 
         <div className="grid md:grid-cols-2 gap-5 md:gap-6">
           {steps.map((s, i) => (
-            <motion.div
+            <div
               key={s.step}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ x: 3 }}
               className="glass-hover rounded-xl p-6 md:p-7 border border-white/[0.04] group flex gap-5"
             >
               <span className="text-3xl md:text-4xl font-bold text-accent/20 group-hover:text-accent/40 transition-colors font-mono leading-none shrink-0">
@@ -67,7 +55,7 @@ export default function Process() {
                 <h3 className="text-lg font-semibold text-white mb-2">{s.title}</h3>
                 <p className="text-gray-400 text-sm leading-relaxed">{s.desc}</p>
               </div>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

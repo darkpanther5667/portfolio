@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { profile } from "@/lib/profile";
 
 const timeline = [
@@ -30,13 +29,7 @@ export default function About() {
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/[0.02] to-transparent pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-14 md:mb-16"
-        >
+        <div className="mb-14 md:mb-16">
           <span className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-3 block">
             About
           </span>
@@ -50,34 +43,22 @@ export default function About() {
             I&apos;m {profile.name}, focused on building modern web products, AI tools,
             and polished experiences that feel useful from the first interaction.
           </p>
-        </motion.div>
+        </div>
 
         <div className="relative">
           <div className="absolute left-[13px] md:left-[17px] top-1 bottom-0 w-px bg-gradient-to-b from-accent/50 via-accent/20 to-transparent" />
 
           <div className="space-y-10 md:space-y-12">
             {timeline.map((item, index) => (
-              <motion.div
+              <div
                 key={item.year}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{
-                  duration: 0.6,
-                  delay: index * 0.1,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
                 className="relative pl-12 md:pl-16"
               >
-                <motion.div
-                  initial={{ scale: 0 }}
-                  whileInView={{ scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 + 0.1, type: "spring", stiffness: 200 }}
+                <div
                   className={`absolute left-0 md:left-1 top-0.5 w-[26px] h-[26px] md:w-[34px] md:h-[34px] rounded-full border-[3px] border-black z-10 flex items-center justify-center bg-accent`}
                 >
                   <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-white" />
-                </motion.div>
+                </div>
 
                 <div className="glass-hover rounded-xl p-5 md:p-6">
                   <span
@@ -92,7 +73,7 @@ export default function About() {
                     {item.description}
                   </p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>

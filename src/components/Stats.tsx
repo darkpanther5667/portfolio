@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import CountUp from "./CountUp";
 
 const stats = [
@@ -12,12 +11,7 @@ const stats = [
 
 function StatItem({ value, label, suffix, index }: { value: number; label: string; suffix: string; index: number }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.5, delay: index * 0.08 }}
-      whileHover={{ y: -4, scale: 1.02 }}
+    <div
       className="glass-hover rounded-2xl p-6 md:p-7 text-center group"
     >
       <span className="text-4xl md:text-5xl font-bold bg-gradient-to-b from-white to-gray-300 bg-clip-text text-transparent mb-2 block">
@@ -27,7 +21,7 @@ function StatItem({ value, label, suffix, index }: { value: number; label: strin
       <div className="text-xs md:text-sm text-gray-500 group-hover:text-gray-400 transition-colors">
         {label}
       </div>
-    </motion.div>
+    </div>
   );
 }
 

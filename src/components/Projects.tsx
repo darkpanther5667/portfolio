@@ -70,15 +70,7 @@ function ProjectCard({ project, index }: { project: (typeof projects)[0]; index:
   const sourceAvailable = Boolean(project.githubUrl);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-60px" }}
-      transition={{
-        duration: 0.7,
-        delay: index * 0.12,
-        ease: [0.16, 1, 0.3, 1],
-      }}
+    <div
       className="group"
     >
       <motion.div
@@ -177,7 +169,7 @@ function ProjectCard({ project, index }: { project: (typeof projects)[0]; index:
           </div>
         </div>
       </motion.div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -187,13 +179,7 @@ export default function Projects() {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
 
       <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-14 md:mb-16"
-        >
+        <div className="mb-14 md:mb-16">
           <span className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-3 block">
             Featured Projects
           </span>
@@ -206,7 +192,7 @@ export default function Projects() {
           <p className="text-gray-500 text-base mt-3 max-w-2xl">
             Each project is built with production in mind — real users, real data, real infrastructure.
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid md:grid-cols-2 gap-5 md:gap-6">
           {projects.map((project, index) => (

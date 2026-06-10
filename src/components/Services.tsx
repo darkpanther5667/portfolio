@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 
 const services = [
   {
@@ -44,13 +43,7 @@ export default function Services() {
       <div className="absolute inset-0 bg-gradient-to-b from-accent/[0.01] via-transparent to-accent/[0.01] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-12 md:mb-14"
-        >
+        <div className="mb-12 md:mb-14">
           <span className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-3 block">
             What I Do
           </span>
@@ -63,17 +56,12 @@ export default function Services() {
           <p className="text-gray-500 text-base mt-3 max-w-2xl">
             From concept to deployment — I build products that solve real problems.
           </p>
-        </motion.div>
+        </div>
 
         <div className="grid md:grid-cols-3 gap-4 md:gap-5">
           {services.map((s, i) => (
-            <motion.div
+            <div
               key={s.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.5, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ y: -3 }}
               className="glass-hover rounded-xl p-6 md:p-7 border border-white/[0.04] group"
             >
               <div className="w-10 h-10 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center text-accent mb-4 group-hover:bg-accent/15 transition-colors">
@@ -81,7 +69,7 @@ export default function Services() {
               </div>
               <h3 className="text-lg font-semibold text-white mb-2">{s.title}</h3>
               <p className="text-gray-400 text-sm leading-relaxed">{s.desc}</p>
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>

@@ -1,7 +1,6 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { motion } from "framer-motion";
 import { profile } from "@/lib/profile";
 import MagneticButton from "./MagneticButton";
 
@@ -47,12 +46,7 @@ export default function Hero() {
 
       <div className="relative z-10 max-w-5xl mx-auto px-6 text-center pt-20">
         {/* Top Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.15 }}
-          className="inline-flex max-w-full items-center gap-2 px-4 py-1.5 rounded-full glass mb-7 group hover:bg-white/[0.06] transition-colors"
-        >
+        <div className="inline-flex max-w-full items-center gap-2 px-4 py-1.5 rounded-full glass mb-7 group hover:bg-white/[0.06] transition-colors">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-accent" />
@@ -60,22 +54,13 @@ export default function Hero() {
           <span className="text-xs sm:text-sm text-gray-300 font-medium tracking-wide">
             {profile.name} &bull; {profile.role}
           </span>
-        </motion.div>
+        </div>
 
         {/* Main Headline */}
         <div className="relative">
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[50%] bg-accent/5 blur-[120px] rounded-full pointer-events-none" />
 
-          <motion.h1
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.7,
-              delay: 0.25,
-              ease: [0.16, 1, 0.3, 1],
-            }}
-            className="text-[clamp(2.4rem,10vw,7.5rem)] font-bold tracking-[-0.04em] leading-[0.92] mb-6"
-          >
+          <h1 className="text-[clamp(2.4rem,10vw,7.5rem)] font-bold tracking-[-0.04em] leading-[0.92] mb-6">
             <span className="block text-base sm:text-lg md:text-xl font-medium tracking-normal text-accent mb-2">
               {profile.name}
             </span>
@@ -87,25 +72,15 @@ export default function Hero() {
               with code
             </span>
             <span className="block">and AI.</span>
-          </motion.h1>
+          </h1>
         </div>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.4 }}
-          className="text-sm sm:text-base md:text-lg text-gray-400 max-w-xl mx-auto mb-10 sm:mb-12 leading-relaxed"
-        >
+        <p className="text-sm sm:text-base md:text-lg text-gray-400 max-w-xl mx-auto mb-10 sm:mb-12 leading-relaxed">
           I design, build, and deploy modern web applications, AI-powered
           tools, and polished digital products.
-        </motion.p>
+        </p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.5 }}
-          className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4"
-        >
+        <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
           <MagneticButton href="#projects">
             <div className="relative w-full sm:w-auto px-8 py-3.5 bg-accent text-white rounded-full font-medium text-sm overflow-hidden transition-all duration-300 hover:shadow-[0_0_35px_-5px_rgba(59,130,246,0.5)] active:scale-95 cursor-pointer">
               <span className="relative z-10">View Projects</span>
@@ -119,33 +94,20 @@ export default function Hero() {
               Get In Touch
             </div>
           </MagneticButton>
-        </motion.div>
+        </div>
       </div>
 
       {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
-      >
-        <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-          className="flex flex-col items-center gap-2"
-        >
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
+        <div className="flex flex-col items-center gap-2">
           <span className="text-[9px] uppercase tracking-[0.25em] text-gray-400/70 font-mono">
             Scroll
           </span>
           <div className="w-4 h-7 rounded-full border border-white/15 flex items-start justify-center pt-1.5">
-            <motion.div
-              animate={{ y: [0, 4, 0], opacity: [1, 0.2, 1] }}
-              transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
-              className="w-1 h-1.5 rounded-full bg-white/50"
-            />
+            <div className="w-1 h-1.5 rounded-full bg-white/50" />
           </div>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </section>
   );
 }

@@ -29,21 +29,14 @@ export default function Reveal({
   return (
     <motion.div
       ref={ref}
-      initial={{
-        opacity: 0,
-        ...directionMap[direction],
-      }}
-      animate={
-        isInView
-          ? { opacity: 1, x: 0, y: 0 }
-          : { opacity: 0 }
-      }
+      animate={isInView ? { opacity: 1, x: 0, y: 0 } : {}}
       transition={{
         duration: 0.7,
         delay,
         ease: [0.16, 1, 0.3, 1],
       }}
       className={className}
+      style={{ opacity: 1 }}
     >
       {children}
     </motion.div>
