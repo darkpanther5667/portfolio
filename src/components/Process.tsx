@@ -45,7 +45,7 @@ const steps = [
 
 export default function Process() {
   return (
-    <section id="process" className="py-24 md:py-28 px-6 relative">
+    <section id="process" className="py-16 sm:py-24 md:py-28 px-5 sm:px-6 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/[0.01] to-transparent pointer-events-none" />
 
       <div className="max-w-6xl mx-auto">

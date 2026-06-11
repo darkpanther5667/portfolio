@@ -38,7 +38,7 @@ const reasons = [
 
 export default function WhyMe() {
   return (
-    <section id="why-me" className="py-24 md:py-28 px-6 relative">
+    <section id="why-me" className="py-16 sm:py-24 md:py-28 px-5 sm:px-6 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/[0.01] to-transparent pointer-events-none" />
 
       <div className="max-w-6xl mx-auto">

@@ -92,10 +92,10 @@ function ProjectCard({ project, index }: { project: (typeof projects)[0]; index:
       <motion.div
         whileHover={{ y: -4 }}
         transition={{ type: "spring", stiffness: 200, damping: 25 }}
-        className="glass-hover rounded-2xl overflow-hidden h-full flex flex-col border border-white/[0.06] group-hover:border-accent/20 transition-colors duration-500"
+        className="glass-hover rounded-2xl overflow-hidden h-full flex flex-col border border-white/[0.06] group-hover:border-accent/20 transition-colors duration-500 touch-feedback"
       >
         <div
-          className={`relative h-48 md:h-56 bg-gradient-to-br ${project.gradient} flex items-center justify-center overflow-hidden`}
+          className={`relative h-36 sm:h-48 md:h-56 bg-gradient-to-br ${project.gradient} flex items-center justify-center overflow-hidden`}
         >
           <div className="absolute inset-0 opacity-50">
             <div className="absolute -top-10 -left-10 w-40 h-40 rounded-full bg-white/10 blur-xl" />
@@ -191,7 +191,7 @@ function ProjectCard({ project, index }: { project: (typeof projects)[0]; index:
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-24 md:py-32 px-6 relative">
+    <section id="projects" className="py-16 sm:py-24 md:py-32 px-5 sm:px-6 relative">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
 
       <div className="max-w-6xl mx-auto">

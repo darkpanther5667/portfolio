@@ -49,7 +49,7 @@ const journey = [
 
 export default function Experience() {
   return (
-    <section id="journey" className="py-24 md:py-28 px-6">
+    <section id="journey" className="py-16 sm:py-24 md:py-28 px-5 sm:px-6">
       <div className="max-w-6xl mx-auto">
         <Reveal>
           <div className="mb-12 md:mb-14">

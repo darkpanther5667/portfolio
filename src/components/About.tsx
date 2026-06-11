@@ -50,7 +50,7 @@ const stats = [
 
 export default function About() {
   return (
-    <section id="about" className="py-24 md:py-32 px-6 relative">
+    <section id="about" className="py-16 sm:py-24 md:py-32 px-5 sm:px-6 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/[0.02] to-transparent pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative">
@@ -73,7 +73,7 @@ export default function About() {
         </Reveal>
 
         <Reveal>
-          <div className="grid grid-cols-3 gap-4 mb-14 md:mb-16">
+          <div className="grid grid-cols-3 gap-3 sm:gap-4 mb-10 sm:mb-14 md:mb-16">
             {stats.map((stat) => (
               <div
                 key={stat.label}

@@ -29,12 +29,12 @@ const stats = [
 
 function StatItem({ value, label, suffix, index }: { value: number; label: string; suffix: string; index: number }) {
   return (
-    <motion.div variants={staggerItem} className="glass-hover rounded-2xl p-6 md:p-7 text-center group">
-      <span className="text-4xl md:text-5xl font-bold bg-gradient-to-b from-white to-gray-300 bg-clip-text text-transparent mb-2 block">
+    <motion.div variants={staggerItem} className="glass-hover rounded-2xl p-4 sm:p-6 md:p-7 text-center group touch-feedback">
+      <span className="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-b from-white to-gray-300 bg-clip-text text-transparent mb-2 block">
         <CountUp from={0} to={value} duration={2} />
         {suffix}
       </span>
-      <div className="text-xs md:text-sm text-gray-500 group-hover:text-gray-400 transition-colors">
+      <div className="text-[10px] sm:text-xs md:text-sm text-gray-500 group-hover:text-gray-400 transition-colors">
         {label}
       </div>
     </motion.div>
@@ -43,7 +43,7 @@ function StatItem({ value, label, suffix, index }: { value: number; label: strin
 
 export default function Stats() {
   return (
-    <section id="stats" className="py-16 md:py-20 px-6 relative">
+    <section id="stats" className="py-12 sm:py-16 md:py-20 px-5 sm:px-6 relative">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent" />
 
       <div className="max-w-6xl mx-auto">

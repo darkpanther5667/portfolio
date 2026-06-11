@@ -1,10 +1,15 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDesktopEffects } from "@/lib/use-desktop-effects";
 
 function Starfield() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -22,20 +27,23 @@ function Starfield() {
     }[] = [];
 
     const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      canvas.width = window.innerWidth * dpr;
+      canvas.height = window.innerHeight * dpr;
+      canvas.style.width = `${window.innerWidth}px`;
+      canvas.style.height = `${window.innerHeight}px`;
+      ctx.scale(dpr, dpr);
     };
 
     const init = () => {
       resize();
-      const count = Math.min(
-        180,
-        Math.floor((window.innerWidth * window.innerHeight) / 8000)
-      );
+      const count = isMobile
+        ? Math.min(40, Math.floor((window.innerWidth * window.innerHeight) / 20000))
+        : Math.min(180, Math.floor((window.innerWidth * window.innerHeight) / 8000));
       stars = Array.from({ length: count }, () => ({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        size: Math.random() * 1.2 + 0.2,
+        x: Math.random() * (canvas.width / (Math.min(window.devicePixelRatio || 1, 2))),
+        y: Math.random() * (canvas.height / (Math.min(window.devicePixelRatio || 1, 2))),
+        size: Math.random() * (isMobile ? 0.8 : 1.2) + 0.2,
         alpha: Math.random() * 0.5 + 0.1,
         speed: Math.random() * 0.02 + 0.005,
         phase: Math.random() * Math.PI * 2,
@@ -43,7 +51,9 @@ function Starfield() {
     };
 
     const animate = (time: number) => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const w = canvas.width / (Math.min(window.devicePixelRatio || 1, 2));
+      const h = canvas.height / (Math.min(window.devicePixelRatio || 1, 2));
+      ctx.clearRect(0, 0, w, h);
 
       for (const star of stars) {
         const twinkle = Math.sin(time * star.speed + star.phase);
@@ -60,13 +70,13 @@ function Starfield() {
 
     init();
     rafId = requestAnimationFrame(animate);
-    window.addEventListener("resize", resize);
+    window.addEventListener("resize", init);
 
     return () => {
       cancelAnimationFrame(rafId);
-      window.removeEventListener("resize", resize);
+      window.removeEventListener("resize", init);
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <canvas
@@ -79,42 +89,71 @@ function Starfield() {
 
 export default function BackgroundEffects() {
   const isDesktop = useDesktopEffects();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
 
   return (
     <>
-      {/* Deep ambient gradient */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Bottom-right blue glow */}
-        <div className="absolute -bottom-1/4 -right-1/4 w-[900px] h-[900px] rounded-full bg-accent/5 blur-[150px] animate-pulse-glow" />
+        {/* Bottom-right blue glow — smaller on mobile */}
+        <div
+          className={`absolute -bottom-1/4 -right-1/4 rounded-full bg-accent/5 blur-[150px] animate-pulse-glow ${
+            isMobile ? "w-[300px] h-[300px]" : "w-[900px] h-[900px]"
+          }`}
+        />
         {/* Top-right purple glow */}
         <div
-          className="absolute -top-1/4 -right-1/4 w-[700px] h-[700px] rounded-full bg-purple-500/4 blur-[140px] animate-pulse-glow"
+          className={`absolute -top-1/4 -right-1/4 rounded-full bg-purple-500/4 blur-[140px] animate-pulse-glow ${
+            isMobile ? "w-[250px] h-[250px]" : "w-[700px] h-[700px]"
+          }`}
           style={{ animationDelay: "-2s" }}
         />
         {/* Top-left subtle glow */}
         <div
-          className="absolute -top-1/3 left-0 w-[500px] h-[500px] rounded-full bg-accent/3 blur-[120px] animate-gradient"
+          className={`absolute -top-1/3 left-0 rounded-full bg-accent/3 blur-[120px] animate-gradient ${
+            isMobile ? "w-[200px] h-[200px]" : "w-[500px] h-[500px]"
+          }`}
           style={{ animationDelay: "-5s" }}
         />
         {/* Bottom-left secondary glow */}
         <div
-          className="absolute -bottom-1/3 left-1/4 w-[400px] h-[400px] rounded-full bg-blue-400/3 blur-[100px] animate-gradient"
+          className={`absolute -bottom-1/3 left-1/4 rounded-full bg-blue-400/3 blur-[100px] animate-gradient ${
+            isMobile ? "w-[180px] h-[180px]" : "w-[400px] h-[400px]"
+          }`}
           style={{ animationDelay: "-10s" }}
         />
 
-        {/* Subtle grid overlay */}
+        {/* Grid overlay — lighter on mobile */}
         <div
-          className="absolute inset-0 opacity-[0.012]"
+          className={`absolute inset-0 ${isMobile ? "opacity-[0.008]" : "opacity-[0.012]"}`}
           style={{
             backgroundImage:
               "linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)",
-            backgroundSize: "64px 64px",
+            backgroundSize: isMobile ? "48px 48px" : "64px 64px",
           }}
         />
       </div>
 
-      {/* Starfield */}
-      {isDesktop ? <Starfield /> : null}
+      {/* Starfield — desktop only, mobile uses simpler CSS */}
+      {isDesktop ? <Starfield /> : (
+        <div className="absolute inset-0 pointer-events-none" style={{ zIndex: 2 }}>
+          {Array.from({ length: 12 }).map((_, i) => (
+            <div
+              key={i}
+              className="absolute w-[1px] h-[1px] bg-white/20 rounded-full animate-twinkle"
+              style={{
+                left: `${10 + (i * 7.5) % 80}%`,
+                top: `${5 + (i * 13) % 90}%`,
+                animationDelay: `${i * 0.4}s`,
+                opacity: 0.15 + (i % 3) * 0.1,
+              }}
+            />
+          ))}
+        </div>
+      )}
     </>
   );
 }
