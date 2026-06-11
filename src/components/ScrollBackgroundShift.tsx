@@ -22,66 +22,52 @@ const sectionColors: SectionColor[] = [
 
 export default function ScrollBackgroundShift() {
   const [activeSection, setActiveSection] = useState("hero");
-  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      setScrollProgress(docHeight > 0 ? scrollY / docHeight : 0);
-
-      // Find which section is most visible
-      const sections = sectionColors.map((s) => {
-        const el = document.getElementById(s.id);
-        if (!el) return { id: s.id, top: Infinity, bottom: Infinity };
-        const rect = el.getBoundingClientRect();
-        return { id: s.id, top: rect.top, bottom: rect.bottom };
-      });
-
-      const viewportCenter = window.innerHeight / 2;
-      let closest = sections[0];
-      let minDist = Infinity;
-
-      for (const section of sections) {
-        if (section.top === Infinity) continue;
-        const mid = (section.top + section.bottom) / 2;
-        const dist = Math.abs(mid - viewportCenter);
-        if (dist < minDist) {
-          minDist = dist;
-          closest = section;
+    // Use IntersectionObserver instead of scroll events
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting && entry.intersectionRatio > 0.3) {
+            const id = entry.target.id;
+            if (sectionColors.some((s) => s.id === id)) {
+              setActiveSection(id);
+            }
+          }
         }
+      },
+      {
+        threshold: [0.3, 0.5],
+        rootMargin: "-10% 0px -10% 0px",
       }
+    );
 
-      setActiveSection(closest.id);
-    };
+    sectionColors.forEach((s) => {
+      const el = document.getElementById(s.id);
+      if (el) observer.observe(el);
+    });
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => observer.disconnect();
   }, []);
 
   const current = sectionColors.find((s) => s.id === activeSection) || sectionColors[0];
 
   return (
     <div className="fixed inset-0 pointer-events-none z-0" aria-hidden="true">
-      {/* Gradient overlay */}
       <div
         className={`absolute inset-0 bg-gradient-to-b ${current.gradient} transition-all duration-1000 ease-out`}
       />
 
-      {/* Corner glow */}
       <div
         className="absolute -top-1/4 -right-1/4 w-[600px] h-[600px] rounded-full blur-[200px] transition-all duration-1000 ease-out"
         style={{ background: current.glow }}
       />
 
-      {/* Bottom-left glow */}
       <div
         className="absolute -bottom-1/4 -left-1/4 w-[400px] h-[400px] rounded-full blur-[150px] transition-all duration-1000 ease-out"
         style={{ background: current.glow }}
       />
 
-      {/* Section indicator dots */}
       <div className="fixed right-4 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col gap-2">
         {sectionColors.map((s) => (
           <div

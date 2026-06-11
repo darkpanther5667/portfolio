@@ -141,9 +141,31 @@ export default function TechStackGraph() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    let settled = false;
+    let settleFrames = 0;
+
     const animate = () => {
+      if (settled) return;
+
       const rect = canvas.getBoundingClientRect();
       forceSimulation(nodesRef.current, rect.width, rect.height);
+
+      // Check if nodes have settled (low total velocity)
+      const totalVelocity = nodesRef.current.reduce(
+        (sum, n) => sum + Math.abs(n.vx) + Math.abs(n.vy),
+        0
+      );
+
+      if (totalVelocity < 0.5) {
+        settleFrames++;
+        if (settleFrames > 60) {
+          settled = true;
+          return;
+        }
+      } else {
+        settleFrames = 0;
+      }
+
       animRef.current = requestAnimationFrame(animate);
     };
 
@@ -224,7 +246,7 @@ export default function TechStackGraph() {
               onMouseLeave={() => setHovered(null)}
             >
               <div
-                className={`w-full h-full rounded-full ${colors.bg} border border-white/[0.08] flex items-center justify-center backdrop-blur-sm transition-shadow duration-300 ${
+                className={`w-full h-full rounded-full ${colors.bg} border border-white/[0.08] flex items-center justify-center transition-shadow duration-300 ${
                   isHovered ? `shadow-lg ${colors.glow}` : ""
                 }`}
               >
