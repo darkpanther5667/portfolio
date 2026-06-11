@@ -3,6 +3,8 @@
 import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CommandPalette from "@/components/CommandPalette";
+import ScrollBackgroundShift from "@/components/ScrollBackgroundShift";
 
 const CustomCursor = dynamic(
   () => import("@/components/CustomCursor"),
@@ -23,12 +25,14 @@ export default function MainLayout({
     <>
       <CustomCursor />
       <ScrollProgress />
+      <ScrollBackgroundShift />
       <Navbar />
       <main id="main-content">
         <SmoothScroll>{children}</SmoothScroll>
       </main>
       <Terminal />
       <AIChat />
+      <CommandPalette />
       <Footer />
     </>
   );

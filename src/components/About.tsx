@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { profile } from "@/lib/profile";
 import Reveal from "./Reveal";
+import GitHubActivity from "./GitHubActivity";
 
 const staggerContainer = {
   hidden: { opacity: 0 },
@@ -151,6 +152,10 @@ export default function About() {
               </motion.div>
             ))}
           </motion.div>
+        </div>
+
+        <div className="mt-12 sm:mt-16">
+          <GitHubActivity />
         </div>
       </div>
     </section>

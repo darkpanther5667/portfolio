@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { profile } from "@/lib/profile";
 import MagneticButton from "./MagneticButton";
+import TextScramble from "./TextScramble";
 import { useDesktopEffects } from "@/lib/use-desktop-effects";
 
 const ThreeBackground = dynamic(
@@ -96,7 +97,7 @@ export default function Hero() {
 
           <h1 className="text-[clamp(2rem,8vw,7.5rem)] font-bold tracking-[-0.04em] leading-[0.92] mb-5 sm:mb-6">
             <span className="block text-sm sm:text-lg md:text-xl font-medium tracking-normal text-accent mb-2">
-              {profile.name}
+              <TextScramble text={profile.name} delay={200} speed={40} />
             </span>
             <span className="block">Building intelligent</span>
             <span className="block">
