@@ -95,7 +95,7 @@ function ProjectCard({ project, index }: { project: (typeof projects)[0]; index:
         className="glass-hover rounded-2xl overflow-hidden h-full flex flex-col border border-white/[0.06] group-hover:border-accent/20 transition-colors duration-500 touch-feedback"
       >
         <div
-          className={`relative h-36 sm:h-48 md:h-56 bg-gradient-to-br ${project.gradient} flex items-center justify-center overflow-hidden`}
+          className={`relative h-32 sm:h-44 md:h-52 bg-gradient-to-br ${project.gradient} flex items-center justify-center overflow-hidden`}
         >
           <div className="absolute inset-0 opacity-50">
             <div className="absolute -top-10 -left-10 w-40 h-40 rounded-full bg-white/10 blur-xl" />
@@ -112,20 +112,20 @@ function ProjectCard({ project, index }: { project: (typeof projects)[0]; index:
             }}
           />
 
-          <div className="relative z-10 text-center px-6">
-            <h3 className="text-3xl md:text-4xl font-bold text-white/90 tracking-tight">
+          <div className="relative z-10 text-center px-4 sm:px-6">
+            <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white/90 tracking-tight">
               {project.title}
             </h3>
-            <p className="text-white/40 text-sm mt-2 font-mono">
+            <p className="text-white/40 text-[11px] sm:text-sm mt-1.5 sm:mt-2 font-mono line-clamp-1">
               {project.tagline}
             </p>
           </div>
 
-          <div className="absolute bottom-0 left-0 right-0 flex justify-center gap-4 pb-4">
+          <div className="absolute bottom-0 left-0 right-0 flex justify-center gap-2 sm:gap-4 pb-3 sm:pb-4 px-2">
             {project.metrics.map((m) => (
               <span
                 key={m}
-                className="px-2.5 py-1 text-[10px] font-mono bg-black/30 backdrop-blur rounded-full text-white/60 border border-white/10"
+                className="px-2 sm:px-2.5 py-1 text-[8px] sm:text-[10px] font-mono bg-black/30 backdrop-blur rounded-full text-white/60 border border-white/10 line-clamp-1"
               >
                 {m}
               </span>
@@ -135,50 +135,50 @@ function ProjectCard({ project, index }: { project: (typeof projects)[0]; index:
           <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full" />
         </div>
 
-        <div className="p-5 md:p-6 flex flex-col flex-1">
-          <p className="text-gray-400 text-sm leading-relaxed mb-5 flex-1">
+        <div className="p-4 sm:p-5 md:p-6 flex flex-col flex-1">
+          <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-5 flex-1 line-clamp-3 sm:line-clamp-none">
             {project.description}
           </p>
 
-          <div className="flex flex-wrap gap-2 mb-5">
+          <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-5">
             {project.tech.map((t) => (
               <span
                 key={t}
-                className="px-3 py-1 text-xs text-gray-300 bg-white/[0.03] rounded-full border border-white/[0.06] group-hover:border-accent/20 transition-colors"
+                className="px-2 sm:px-3 py-1 text-[10px] sm:text-xs text-gray-300 bg-white/[0.03] rounded-full border border-white/[0.06] group-hover:border-accent/20 transition-colors"
               >
                 {t}
               </span>
             ))}
           </div>
 
-          <div className="flex gap-3">
+          <div className="flex gap-2 sm:gap-3">
             {liveAvailable ? (
               <a
                 href={project.liveUrl}
-                className="relative px-5 py-2.5 bg-accent text-white text-sm font-medium rounded-full overflow-hidden transition-all duration-300 hover:shadow-[0_0_25px_-5px_rgba(59,130,246,0.4)] active:scale-95 group/btn"
+                className="relative px-4 sm:px-5 py-2 sm:py-2.5 bg-accent text-white text-xs sm:text-sm font-medium rounded-full overflow-hidden transition-all duration-300 hover:shadow-[0_0_25px_-5px_rgba(59,130,246,0.4)] active:scale-95 group/btn"
               >
                 <span className="relative z-10">Live Demo</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-500" />
               </a>
             ) : (
-              <span className="px-5 py-2.5 rounded-full text-sm font-medium bg-white/[0.03] text-gray-500 border border-white/[0.06]">
+              <span className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium bg-white/[0.03] text-gray-500 border border-white/[0.06]">
                 Coming Soon
               </span>
             )}
             {sourceAvailable ? (
               <a
                 href={project.githubUrl}
-                className="px-5 py-2.5 glass text-gray-300 text-sm font-medium rounded-full transition-all duration-300 hover:bg-white/10 hover:text-white active:scale-95 border border-white/10"
+                className="px-4 sm:px-5 py-2 sm:py-2.5 glass text-gray-300 text-xs sm:text-sm font-medium rounded-full transition-all duration-300 hover:bg-white/10 hover:text-white active:scale-95 border border-white/10"
               >
-                <span className="flex items-center gap-2">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <span className="flex items-center gap-1.5 sm:gap-2">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
                   </svg>
                   Source
                 </span>
               </a>
             ) : (
-              <span className="px-5 py-2.5 rounded-full text-sm font-medium bg-white/[0.03] text-gray-500 border border-white/[0.06]">
+              <span className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium bg-white/[0.03] text-gray-500 border border-white/[0.06]">
                 Private
               </span>
             )}
@@ -217,10 +217,15 @@ export default function Projects() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-80px" }}
-          className="grid md:grid-cols-2 gap-5 md:gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 md:gap-6"
         >
           {projects.map((project, index) => (
-            <ProjectCard key={project.title} project={project} index={index} />
+            <div
+              key={project.title}
+              className={index === projects.length - 1 && projects.length % 2 !== 0 ? "md:col-span-2 md:max-w-[calc(50%-0.75rem)] md:justify-self-center" : ""}
+            >
+              <ProjectCard project={project} index={index} />
+            </div>
           ))}
         </motion.div>
 
