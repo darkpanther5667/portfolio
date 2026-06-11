@@ -7,8 +7,8 @@ import MagneticButton from "./MagneticButton";
 import TextScramble from "./TextScramble";
 import { useDesktopEffects } from "@/lib/use-desktop-effects";
 
-const ThreeBackground = dynamic(
-  () => import("./ThreeBackground"),
+const Hero3D = dynamic(
+  () => import("./Hero3D"),
   { ssr: false }
 );
 const FloatingProjectCards = dynamic(
@@ -55,7 +55,7 @@ export default function Hero() {
       className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden"
     >
       <BackgroundEffects />
-      <ThreeBackground />
+      <Hero3D />
       <MouseGlow />
 
       <div
