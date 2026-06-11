@@ -2,6 +2,9 @@
 
 import { motion } from "framer-motion";
 import Reveal from "./Reveal";
+import dynamic from "next/dynamic";
+
+const ProjectShowcase = dynamic(() => import("./ProjectShowcase"), { ssr: false });
 
 const staggerContainer = {
   hidden: { opacity: 0 },
@@ -209,6 +212,12 @@ export default function Projects() {
             <p className="text-gray-500 text-base mt-3 max-w-2xl">
               Each project is built with production in mind — real users, real data, real infrastructure.
             </p>
+          </div>
+        </Reveal>
+
+        <Reveal>
+          <div className="mb-12 md:mb-16">
+            <ProjectShowcase />
           </div>
         </Reveal>
 

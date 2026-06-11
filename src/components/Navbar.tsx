@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
+import AnimatedLogo from "./AnimatedLogo";
 
 const navLinks = [
   { label: "Projects", href: "#projects" },
@@ -51,12 +52,13 @@ export default function Navbar() {
       <nav className="max-w-7xl mx-auto px-5 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
         <a
           href="#hero"
-          className="text-base sm:text-lg font-semibold tracking-tight hover:text-accent transition-colors group"
+          className="flex items-center gap-2 group"
         >
-          <span className="group-hover:text-accent transition-colors">
-            Manas Agrawal
+          <AnimatedLogo className="w-8 h-6 text-accent" />
+          <span className="text-base sm:text-lg font-semibold tracking-tight text-white/80 group-hover:text-white transition-colors hidden sm:block">
+            Manas
+            <span className="text-accent">.</span>
           </span>
-          <span className="text-accent">.</span>
         </a>
 
         <div className="hidden md:flex items-center gap-1">

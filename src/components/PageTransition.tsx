@@ -3,13 +3,22 @@
 import { motion } from "framer-motion";
 
 const pageVariants = {
-  hidden: { opacity: 0 },
+  hidden: { opacity: 0, y: 8 },
   visible: {
     opacity: 1,
+    y: 0,
     transition: {
-      duration: 0.4,
-      ease: "easeOut" as const,
-      staggerChildren: 0.1,
+      duration: 0.5,
+      ease: [0.16, 1, 0.3, 1] as const,
+      staggerChildren: 0.08,
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: -8,
+    transition: {
+      duration: 0.3,
+      ease: [0.7, 0, 0.84, 0] as const,
     },
   },
 };
@@ -31,6 +40,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
     <motion.div
       initial="hidden"
       animate="visible"
+      exit="exit"
       variants={pageVariants}
     >
       {children}

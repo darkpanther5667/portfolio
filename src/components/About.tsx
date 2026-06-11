@@ -4,6 +4,9 @@ import { motion } from "framer-motion";
 import { profile } from "@/lib/profile";
 import Reveal from "./Reveal";
 import GitHubActivity from "./GitHubActivity";
+import dynamic from "next/dynamic";
+
+const Workspace3D = dynamic(() => import("./Workspace3D"), { ssr: false });
 
 const staggerContainer = {
   hidden: { opacity: 0 },
@@ -153,6 +156,13 @@ export default function About() {
             ))}
           </motion.div>
         </div>
+
+        <Reveal>
+          <div className="mt-12 sm:mt-16">
+            <h3 className="text-xl font-semibold mb-6 text-center">My Workspace</h3>
+            <Workspace3D />
+          </div>
+        </Reveal>
 
         <div className="mt-12 sm:mt-16">
           <GitHubActivity />
