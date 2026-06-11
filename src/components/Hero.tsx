@@ -55,8 +55,8 @@ export default function Hero() {
       className="relative min-h-[100dvh] flex items-center justify-center overflow-hidden"
     >
       <BackgroundEffects />
-      <Hero3D />
-      <MouseGlow />
+      {isDesktop && <Hero3D />}
+      {isDesktop && <MouseGlow />}
 
       <div
         className="absolute inset-0 pointer-events-none noise-overlay"

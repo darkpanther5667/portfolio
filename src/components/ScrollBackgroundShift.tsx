@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useDesktopEffects } from "@/lib/use-desktop-effects";
 
 interface SectionColor {
   id: string;
@@ -22,6 +23,7 @@ const sectionColors: SectionColor[] = [
 
 export default function ScrollBackgroundShift() {
   const [activeSection, setActiveSection] = useState("hero");
+  const isDesktop = useDesktopEffects();
 
   useEffect(() => {
     // Use IntersectionObserver instead of scroll events
@@ -58,15 +60,19 @@ export default function ScrollBackgroundShift() {
         className={`absolute inset-0 bg-gradient-to-b ${current.gradient} transition-all duration-1000 ease-out`}
       />
 
-      <div
-        className="absolute -top-1/4 -right-1/4 w-[600px] h-[600px] rounded-full blur-[200px] transition-all duration-1000 ease-out"
-        style={{ background: current.glow }}
-      />
+      {isDesktop && (
+        <>
+          <div
+            className="absolute -top-1/4 -right-1/4 w-[600px] h-[600px] rounded-full blur-[200px] transition-all duration-1000 ease-out"
+            style={{ background: current.glow }}
+          />
 
-      <div
-        className="absolute -bottom-1/4 -left-1/4 w-[400px] h-[400px] rounded-full blur-[150px] transition-all duration-1000 ease-out"
-        style={{ background: current.glow }}
-      />
+          <div
+            className="absolute -bottom-1/4 -left-1/4 w-[400px] h-[400px] rounded-full blur-[150px] transition-all duration-1000 ease-out"
+            style={{ background: current.glow }}
+          />
+        </>
+      )}
 
       <div className="fixed right-4 top-1/2 -translate-y-1/2 z-50 hidden lg:flex flex-col gap-2">
         {sectionColors.map((s) => (

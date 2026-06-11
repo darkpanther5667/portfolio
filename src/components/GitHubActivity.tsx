@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Reveal from "./Reveal";
+import { useDesktopEffects } from "@/lib/use-desktop-effects";
 
 interface GitHubStats {
   public_repos: number;
@@ -21,6 +22,7 @@ export default function GitHubActivity() {
   const [stats, setStats] = useState<GitHubStats | null>(null);
   const [contributions, setContributions] = useState<ContributionDay[]>([]);
   const [loading, setLoading] = useState(true);
+  const isDesktop = useDesktopEffects();
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -128,14 +130,8 @@ export default function GitHubActivity() {
           </div>
           <div className="flex gap-[3px]">
             {contributions.map((day, i) => (
-              <motion.div
+              <div
                 key={i}
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{
-                  delay: Math.min(i * 0.002, 0.5),
-                  duration: 0.2,
-                }}
                 className={`w-[10px] sm:w-[11px] h-[10px] sm:h-[11px] rounded-[2px] transition-colors ${
                   day.level === 0
                     ? "bg-white/[0.04]"

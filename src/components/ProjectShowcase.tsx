@@ -123,7 +123,7 @@ export default function ProjectShowcase() {
 
                 {/* Floating dots */}
                 <div className="absolute inset-0">
-                  {Array.from({ length: 20 }).map((_, i) => (
+                  {Array.from({ length: 8 }).map((_, i) => (
                     <motion.div
                       key={i}
                       className="absolute w-1 h-1 rounded-full bg-white/20"

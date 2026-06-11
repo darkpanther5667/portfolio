@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { profile } from "@/lib/profile";
 import Reveal from "./Reveal";
+import { useDesktopEffects } from "@/lib/use-desktop-effects";
 
 const staggerContainer = {
   hidden: { opacity: 0 },
@@ -73,10 +74,14 @@ const links = [
 ];
 
 export default function Contact() {
+  const isDesktop = useDesktopEffects();
+
   return (
     <section id="contact" className="py-16 sm:py-24 md:py-32 px-5 sm:px-6 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/[0.02] to-accent/[0.04] pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-accent/3 blur-[120px] rounded-full pointer-events-none" />
+      {isDesktop && (
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-accent/3 blur-[120px] rounded-full pointer-events-none" />
+      )}
 
       <div className="max-w-4xl mx-auto text-center relative">
         <Reveal>

@@ -2,7 +2,10 @@
 
 import { motion } from "framer-motion";
 import Reveal from "./Reveal";
-import TechStackGraph from "./TechStackGraph";
+import dynamic from "next/dynamic";
+import { useDesktopEffects } from "@/lib/use-desktop-effects";
+
+const TechStackGraph = dynamic(() => import("./TechStackGraph"), { ssr: false });
 
 const staggerContainer = {
   hidden: { opacity: 0 },
@@ -29,6 +32,8 @@ const technologies = [
 ];
 
 export default function TechStack() {
+  const isDesktop = useDesktopEffects();
+
   return (
     <section id="skills" className="py-16 sm:py-24 md:py-28 px-5 sm:px-6 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/[0.01] to-transparent pointer-events-none" />
@@ -46,15 +51,17 @@ export default function TechStack() {
               </span>
             </h2>
             <p className="text-gray-500 text-sm mt-3 max-w-lg mx-auto">
-              Hover over nodes to explore connections between technologies
+              {isDesktop ? "Hover over nodes to explore connections between technologies" : "Technologies I work with"}
             </p>
           </div>
         </Reveal>
 
-        {/* Interactive graph — replaces static pills */}
-        <Reveal>
-          <TechStackGraph />
-        </Reveal>
+        {/* Interactive graph — desktop only */}
+        {isDesktop && (
+          <Reveal>
+            <TechStackGraph />
+          </Reveal>
+        )}
 
         {/* Static pills below as fallback/secondary */}
         <motion.div
