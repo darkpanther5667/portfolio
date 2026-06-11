@@ -80,38 +80,20 @@ function DesktopCard({
         className="w-[180px] group cursor-default"
         style={{ transform: `rotate(${tilt}deg)` }}
       >
-        <div className="rounded-xl overflow-hidden backdrop-blur-xl bg-white/[0.03] border border-white/[0.08] shadow-[0_8px_32px_-8px_rgba(0,0,0,0.4)] transition-shadow duration-300 group-hover:shadow-[0_12px_40px_-8px_rgba(59,130,246,0.15)] group-hover:border-accent/20">
-          <div className={`h-24 bg-gradient-to-br ${gradient} flex items-center justify-center relative overflow-hidden`}>
-            <div
-              className="absolute inset-0 opacity-[0.04]"
-              style={{
-                backgroundImage:
-                  "linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)",
-                backgroundSize: "16px 16px",
-              }}
-            />
-            <div className="flex gap-1.5 absolute top-2.5 left-3">
-              <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
-              <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
-              <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
-            </div>
-            <div className="relative z-10">
-              <div className="w-8 h-8 rounded-lg bg-white/10 backdrop-blur flex items-center justify-center">
-                <div className={`w-4 h-0.5 rounded-full ${accent}`} />
-              </div>
+        <div className={`h-24 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center relative overflow-hidden`}>
+          <div className="flex gap-1.5 absolute top-2.5 left-3">
+            <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
+            <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
+            <div className="w-1.5 h-1.5 rounded-full bg-white/20" />
+          </div>
+          <div className="relative z-10">
+            <div className="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
+              <div className={`w-4 h-0.5 rounded-full ${accent}`} />
             </div>
           </div>
-          <div className="p-3">
-            <h4 className="text-xs font-semibold text-white/90 truncate">{title}</h4>
-            <p className="text-[10px] text-gray-500 mt-0.5">{tag}</p>
-            <div className="flex gap-1.5 mt-2">
-              <span className="px-1.5 py-[1px] text-[8px] rounded-full bg-white/[0.04] text-gray-500 border border-white/[0.04]">
-                {tag.split(" ")[0]}
-              </span>
-              <span className="px-1.5 py-[1px] text-[8px] rounded-full bg-white/[0.04] text-gray-500 border border-white/[0.04]">
-                Live
-              </span>
-            </div>
+          <div className="absolute bottom-2 left-3 right-3">
+            <h4 className="text-[10px] font-semibold text-white/80 truncate">{title}</h4>
+            <p className="text-[8px] text-white/40 mt-0.5">{tag}</p>
           </div>
         </div>
       </motion.div>
@@ -147,35 +129,20 @@ function MobileCard({
         }}
         className="group cursor-default"
       >
-        <div className="rounded-xl overflow-hidden backdrop-blur-xl bg-white/[0.03] border border-white/[0.08] shadow-[0_8px_32px_-8px_rgba(0,0,0,0.4)] active:scale-95 transition-transform duration-200">
-          <div className={`h-16 sm:h-20 bg-gradient-to-br ${gradient} flex items-center justify-center relative overflow-hidden`}>
-            <div
-              className="absolute inset-0 opacity-[0.04]"
-              style={{
-                backgroundImage:
-                  "linear-gradient(rgba(255,255,255,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.3) 1px, transparent 1px)",
-                backgroundSize: "12px 12px",
-              }}
-            />
-            <div className="flex gap-1 absolute top-2 left-2.5">
-              <div className="w-1 h-1 rounded-full bg-white/20" />
-              <div className="w-1 h-1 rounded-full bg-white/20" />
-              <div className="w-1 h-1 rounded-full bg-white/20" />
-            </div>
-            <div className="relative z-10">
-              <div className="w-7 h-7 rounded-lg bg-white/10 backdrop-blur flex items-center justify-center">
-                <div className={`w-3 h-0.5 rounded-full ${accent}`} />
-              </div>
+        <div className={`h-20 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center relative overflow-hidden`}>
+          <div className="flex gap-1 absolute top-2 left-2.5">
+            <div className="w-1 h-1 rounded-full bg-white/20" />
+            <div className="w-1 h-1 rounded-full bg-white/20" />
+            <div className="w-1 h-1 rounded-full bg-white/20" />
+          </div>
+          <div className="relative z-10">
+            <div className="w-7 h-7 rounded-lg bg-white/10 flex items-center justify-center">
+              <div className={`w-3 h-0.5 rounded-full ${accent}`} />
             </div>
           </div>
-          <div className="p-2.5">
-            <h4 className="text-[11px] font-semibold text-white/90 truncate">{title}</h4>
-            <p className="text-[9px] text-gray-500 mt-0.5">{tag}</p>
-            <div className="flex gap-1 mt-1.5">
-              <span className="px-1.5 py-[1px] text-[7px] rounded-full bg-white/[0.04] text-gray-500 border border-white/[0.04]">
-                {tag.split(" ")[0]}
-              </span>
-            </div>
+          <div className="absolute bottom-1.5 left-2.5 right-2.5">
+            <h4 className="text-[10px] font-semibold text-white/80 truncate">{title}</h4>
+            <p className="text-[7px] text-white/40 mt-0.5">{tag}</p>
           </div>
         </div>
       </motion.div>

@@ -50,38 +50,7 @@ export default function Hero3D() {
       const wireframe = new THREE.LineSegments(edgesGeo, edgesMat);
       scene.add(wireframe);
 
-      // --- Orbiting particles (reduced from 80 to 40) ---
-      const particleCount = 40;
-      const particlePositions = new Float32Array(particleCount * 3);
-      const particleSpeeds: number[] = [];
-
-      for (let i = 0; i < particleCount; i++) {
-        const theta = Math.random() * Math.PI * 2;
-        const phi = Math.acos(2 * Math.random() - 1);
-        const r = 2 + Math.random() * 1.2;
-
-        particlePositions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
-        particlePositions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
-        particlePositions[i * 3 + 2] = r * Math.cos(phi);
-        particleSpeeds.push(0.2 + Math.random() * 0.5);
-      }
-
-      const particleGeo = new THREE.BufferGeometry();
-      particleGeo.setAttribute(
-        "position",
-        new THREE.BufferAttribute(particlePositions, 3)
-      );
-      const particleMat = new THREE.PointsMaterial({
-        color: 0x60a5fa,
-        size: 0.03,
-        transparent: true,
-        opacity: 0.6,
-        blending: THREE.AdditiveBlending,
-      });
-      const particles = new THREE.Points(particleGeo, particleMat);
-      scene.add(particles);
-
-      // --- Single ring (removed second) ---
+      // --- Single ring ---
       const ringGeo = new THREE.RingGeometry(2.3, 2.32, 64);
       const ringMat = new THREE.MeshBasicMaterial({
         color: 0x3b82f6,
@@ -92,7 +61,7 @@ export default function Hero3D() {
       const ring = new THREE.Mesh(ringGeo, ringMat);
       scene.add(ring);
 
-      // --- Lights (reduced to 2) ---
+      // --- Lights ---
       const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
       scene.add(ambientLight);
 
@@ -129,31 +98,14 @@ export default function Hero3D() {
       const animate = () => {
         const t = clock.getElapsedTime();
 
-        // Smooth mouse
         mouseX += (targetMouseX - mouseX) * 0.04;
         mouseY += (targetMouseY - mouseY) * 0.04;
 
-        // Rotate wireframe
         wireframe.rotation.x = t * 0.15 + mouseY * 0.3;
         wireframe.rotation.y = t * 0.2 + mouseX * 0.3;
 
-        // Particles orbit
-        const pPos = particles.geometry.attributes.position.array as Float32Array;
-        for (let i = 0; i < particleCount; i++) {
-          const speed = particleSpeeds[i];
-          const i3 = i * 3;
-          const x = pPos[i3];
-          const z = pPos[i3 + 2];
-          const angle = speed * 0.01;
-          pPos[i3] = x * Math.cos(angle) - z * Math.sin(angle);
-          pPos[i3 + 2] = x * Math.sin(angle) + z * Math.cos(angle);
-        }
-        particles.geometry.attributes.position.needsUpdate = true;
-
-        // Ring rotate
         ring.rotation.z = t * 0.08;
 
-        // Camera follows mouse
         camera.position.x = mouseX * 0.5;
         camera.position.y = mouseY * 0.3;
         camera.lookAt(0, 0, 0);
