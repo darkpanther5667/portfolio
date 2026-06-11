@@ -1,12 +1,26 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { profile } from "@/lib/profile";
 
 export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-white/[0.04] py-10 px-6">
+    <motion.footer
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true }}
+      className="border-t border-white/[0.04] py-10 px-6"
+    >
       <div className="max-w-6xl mx-auto">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col md:flex-row items-center justify-between gap-6 mb-6"
+        >
           <div className="flex items-center gap-3">
             <a href="#hero" className="text-sm font-medium text-white hover:text-accent transition-colors">
               {profile.name}
@@ -64,13 +78,19 @@ export default function Footer() {
               </svg>
             </a>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="border-t border-white/[0.04] pt-6 flex flex-col md:flex-row items-center justify-between gap-4">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="border-t border-white/[0.04] pt-6 flex flex-col md:flex-row items-center justify-between gap-4"
+        >
           <span className="text-xs text-gray-600">&copy; {year} {profile.name}. All rights reserved.</span>
           <span className="text-[10px] text-gray-700">Built with Next.js &middot; TailwindCSS &middot; Deployed on Vercel</span>
-        </div>
+        </motion.div>
       </div>
-    </footer>
+    </motion.footer>
   );
 }

@@ -1,6 +1,24 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Reveal from "./Reveal";
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.12 },
+  },
+};
+
+const staggerItem = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: "easeOut" as const },
+  },
+};
 
 const projects = [
   {
@@ -70,9 +88,7 @@ function ProjectCard({ project, index }: { project: (typeof projects)[0]; index:
   const sourceAvailable = Boolean(project.githubUrl);
 
   return (
-    <div
-      className="group"
-    >
+    <motion.div variants={staggerItem} className="group">
       <motion.div
         whileHover={{ y: -4 }}
         transition={{ type: "spring", stiffness: 200, damping: 25 }}
@@ -169,7 +185,7 @@ function ProjectCard({ project, index }: { project: (typeof projects)[0]; index:
           </div>
         </div>
       </motion.div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -179,26 +195,62 @@ export default function Projects() {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
 
       <div className="max-w-6xl mx-auto">
-        <div className="mb-14 md:mb-16">
-          <span className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-3 block">
-            Featured Projects
-          </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1]">
-            Real products,{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-light">
-              real impact
+        <Reveal>
+          <div className="mb-14 md:mb-16">
+            <span className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-3 block">
+              Featured Projects
             </span>
-          </h2>
-          <p className="text-gray-500 text-base mt-3 max-w-2xl">
-            Each project is built with production in mind — real users, real data, real infrastructure.
-          </p>
-        </div>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1]">
+              Real products,{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-light">
+                real impact
+              </span>
+            </h2>
+            <p className="text-gray-500 text-base mt-3 max-w-2xl">
+              Each project is built with production in mind — real users, real data, real infrastructure.
+            </p>
+          </div>
+        </Reveal>
 
-        <div className="grid md:grid-cols-2 gap-5 md:gap-6">
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          className="grid md:grid-cols-2 gap-5 md:gap-6"
+        >
           {projects.map((project, index) => (
             <ProjectCard key={project.title} project={project} index={index} />
           ))}
-        </div>
+        </motion.div>
+
+        <Reveal>
+          <div className="mt-16 text-center">
+            <p className="text-gray-400 text-lg mb-6">
+              Want to dive deeper into any project?
+            </p>
+            <a
+              href="/projects/grahbook"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-accent/10 hover:bg-accent/20 rounded-full text-sm font-medium text-gray-300 transition-all duration-300 border border-accent/20 hover:border-accent/40"
+            >
+              <span>View Project Details</span>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="group-hover:translate-x-1 transition-transform"
+              >
+                <path d="M5 12h14" />
+                <path d="m12 5 7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

@@ -1,6 +1,25 @@
 "use client";
 
+import { motion } from "framer-motion";
 import { profile } from "@/lib/profile";
+import Reveal from "./Reveal";
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.08 },
+  },
+};
+
+const staggerItem = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" as const },
+  },
+};
 
 const links = [
   {
@@ -60,35 +79,45 @@ export default function Contact() {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-accent/3 blur-[120px] rounded-full pointer-events-none" />
 
       <div className="max-w-4xl mx-auto text-center relative">
-        <div>
-          <span className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-5 block">
-            Contact
-          </span>
-
-          <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-[-0.03em] leading-[0.95] mb-5">
-            Let&apos;s build your next{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-accent-light to-white">
-              product
+        <Reveal>
+          <div>
+            <span className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-5 block">
+              Contact
             </span>
-            <br />
-            together.
-          </h2>
 
-          <p className="text-gray-400 text-base md:text-lg max-w-xl mx-auto mb-10 leading-relaxed">
-            Have a project, idea, or just want to connect? Reach out — I reply to every message.
-          </p>
-        </div>
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-[-0.03em] leading-[0.95] mb-5">
+              Let&apos;s build your next{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-accent-light to-white">
+                product
+              </span>
+              <br />
+              together.
+            </h2>
 
-        <div className="flex flex-wrap justify-center gap-3">
+            <p className="text-gray-400 text-base md:text-lg max-w-xl mx-auto mb-10 leading-relaxed">
+              Have a project, idea, or just want to connect? Reach out — I reply to every message.
+            </p>
+          </div>
+        </Reveal>
+
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          className="flex flex-wrap justify-center gap-3"
+        >
           {links.map((link) => (
-            <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer">
-              <div className="inline-flex items-center gap-2 px-5 py-2.5 glass text-gray-300 rounded-full text-sm font-medium transition-all duration-300 hover:bg-white/[0.08] border border-white/10 hover:border-accent/30 hover:text-white cursor-pointer active:scale-95">
-                {link.icon}
-                {link.label}
-              </div>
-            </a>
+            <motion.div key={link.label} variants={staggerItem}>
+              <a href={link.href} target="_blank" rel="noopener noreferrer">
+                <div className="inline-flex items-center gap-2 px-5 py-2.5 glass text-gray-300 rounded-full text-sm font-medium transition-all duration-300 hover:bg-white/[0.08] border border-white/10 hover:border-accent/30 hover:text-white cursor-pointer active:scale-95">
+                  {link.icon}
+                  {link.label}
+                </div>
+              </a>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

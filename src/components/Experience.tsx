@@ -1,6 +1,24 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Reveal from "./Reveal";
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.15 },
+  },
+};
+
+const staggerItem = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" as const },
+  },
+};
 
 const journey = [
   {
@@ -33,36 +51,43 @@ export default function Experience() {
   return (
     <section id="journey" className="py-24 md:py-28 px-6">
       <div className="max-w-6xl mx-auto">
-        <div className="mb-12 md:mb-14">
-          <span className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-3 block">
-            What I Bring
-          </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1]">
-            How I{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-light">
-              build
+        <Reveal>
+          <div className="mb-12 md:mb-14">
+            <span className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-3 block">
+              What I Bring
             </span>
-          </h2>
-        </div>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1]">
+              How I{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-light">
+                build
+              </span>
+            </h2>
+          </div>
+        </Reveal>
 
-        <div className="grid md:grid-cols-3 gap-5 md:gap-6">
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          className="grid md:grid-cols-3 gap-5 md:gap-6"
+        >
           {journey.map((item, index) => (
-            <div
+            <motion.div
               key={item.year}
+              variants={staggerItem}
               className="relative"
             >
               <motion.div
-              whileHover={{ y: -6, scale: 1.01 }}
-              transition={{ type: "spring", stiffness: 200, damping: 20 }}
+                whileHover={{ y: -6, scale: 1.01 }}
+                transition={{ type: "spring", stiffness: 200, damping: 20 }}
                 className="glass-hover rounded-2xl p-6 md:p-7 h-full flex flex-col"
               >
                 <span className="text-5xl md:text-6xl font-bold text-white/[0.03] leading-none mb-2 select-none">
                   {item.count}
                 </span>
 
-                <div
-                  className="inline-flex self-start items-center px-3 py-1 rounded-full text-xs font-mono mb-4 bg-white/[0.04] text-gray-400 border border-white/[0.06]"
-                >
+                <div className="inline-flex self-start items-center px-3 py-1 rounded-full text-xs font-mono mb-4 bg-white/[0.04] text-gray-400 border border-white/[0.06]">
                   {item.year}
                 </div>
 
@@ -75,9 +100,9 @@ export default function Experience() {
               {index < journey.length - 1 && (
                 <div className="hidden md:block absolute top-14 -right-4 w-8 h-px bg-gradient-to-r from-accent/30 to-transparent" />
               )}
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -17,26 +17,33 @@ export default function Reveal({
   direction = "up",
 }: RevealProps) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-60px" });
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
 
-  const directionMap = {
-    up: { y: 40 },
-    down: { y: -40 },
-    left: { x: 40 },
-    right: { x: -40 },
+  const variants = {
+    hidden: {
+      opacity: 0,
+      [direction === "up" || direction === "down" ? "y" : "x"]:
+        direction === "up" || direction === "left" ? 50 : -50,
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      x: 0,
+    },
   };
 
   return (
     <motion.div
       ref={ref}
-      animate={isInView ? { opacity: 1, x: 0, y: 0 } : {}}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+      variants={variants}
       transition={{
         duration: 0.7,
         delay,
         ease: [0.16, 1, 0.3, 1],
       }}
       className={className}
-      style={{ opacity: 1 }}
     >
       {children}
     </motion.div>

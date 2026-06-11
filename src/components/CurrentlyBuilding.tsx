@@ -1,6 +1,24 @@
 "use client";
 
-import { profile } from "@/lib/profile";
+import { motion } from "framer-motion";
+import Reveal from "./Reveal";
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.12 },
+  },
+};
+
+const staggerItem = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" as const },
+  },
+};
 
 const projects = [
   {
@@ -43,9 +61,7 @@ const projects = [
 
 function BuildingCard({ project, index }: { project: (typeof projects)[0]; index: number }) {
   return (
-    <div
-      className="group"
-    >
+    <motion.div variants={staggerItem} className="group">
       <div className="glass-hover rounded-xl p-5 md:p-6 h-full border border-white/[0.04] group-hover:border-white/[0.1] transition-colors relative overflow-hidden">
         <div
           className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-50 group-hover:opacity-80 transition-opacity duration-500`}
@@ -85,7 +101,7 @@ function BuildingCard({ project, index }: { project: (typeof projects)[0]; index
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
 
@@ -95,24 +111,32 @@ export default function CurrentlyBuilding() {
       <div className="absolute inset-0 bg-gradient-to-b from-accent/[0.015] via-transparent to-accent/[0.015] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative">
-        <div className="mb-12 md:mb-14">
-          <span className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-3 block">
-            Currently Building
-          </span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1]">
-            What{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-light">
-              {profile.name}
+        <Reveal>
+          <div className="mb-12 md:mb-14">
+            <span className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-3 block">
+              Currently Building
             </span>
-            {" "}is shipping now
-          </h2>
-        </div>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1]">
+              What{" "}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-light">
+                Manas Agrawal
+              </span>
+              {" "}is shipping now
+            </h2>
+          </div>
+        </Reveal>
 
-        <div className="grid md:grid-cols-2 gap-4 md:gap-5">
+        <motion.div
+          variants={staggerContainer}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-80px" }}
+          className="grid md:grid-cols-2 gap-4 md:gap-5"
+        >
           {projects.map((project, index) => (
             <BuildingCard key={project.name} project={project} index={index} />
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
