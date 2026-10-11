@@ -21,10 +21,10 @@ const staggerItem = {
 };
 
 const stats = [
-  { value: 3, label: "Products Shipped", suffix: "+" },
-  { value: 2, label: "In Development", suffix: "" },
-  { value: 4, label: "Open Source Repos", suffix: "" },
-  { value: 1, label: "Year Building", suffix: "+" },
+  { value: 3, label: "Live Products Shipped", suffix: "+" },
+  { value: 15, label: "Core Technologies", suffix: "+" },
+  { value: 2, label: "AI Platforms in R&D", suffix: "" },
+  { value: 3, label: "Years Building", suffix: "+" },
 ];
 
 function StatItem({ value, label, suffix, index }: { value: number; label: string; suffix: string; index: number }) {

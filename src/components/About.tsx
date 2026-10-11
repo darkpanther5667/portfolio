@@ -47,12 +47,6 @@ const timeline = [
   },
 ];
 
-const stats = [
-  { label: "Projects Shipped", value: "5+" },
-  { label: "Technologies", value: "15+" },
-  { label: "GitHub Stars", value: "100+" },
-];
-
 export default function About() {
   const heavyRef = useRef<HTMLDivElement>(null);
   const [loadHeavy, setLoadHeavy] = useState(false);
@@ -93,22 +87,6 @@ export default function About() {
               I&apos;m {profile.name}, focused on building modern web products, AI tools,
               and polished experiences that feel useful from the first interaction.
             </p>
-          </div>
-        </Reveal>
-
-        <Reveal>
-          <div className="grid grid-cols-3 gap-3 sm:gap-4 mb-10 sm:mb-14 md:mb-16">
-            {stats.map((stat) => (
-              <div
-                key={stat.label}
-                className="glass-hover rounded-xl p-5 text-center"
-              >
-                <div className="text-3xl md:text-4xl font-bold text-accent mb-1">
-                  {stat.value}
-                </div>
-                <div className="text-xs md:text-sm text-gray-500">{stat.label}</div>
-              </div>
-            ))}
           </div>
         </Reveal>
 

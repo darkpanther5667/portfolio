@@ -3,21 +3,25 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { profile } from "@/lib/profile";
-import { useDesktopEffects } from "@/lib/use-desktop-effects";
 
 interface Message {
   role: "user" | "assistant";
   content: string;
 }
 
+const starterPrompts = [
+  "What has Manas built?",
+  "What is his tech stack?",
+  "Is he available for hire?",
+  "How can I contact him?",
+];
+
 export default function AIChat() {
-  const isDesktop = useDesktopEffects();
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
-      content:
-        `Hi! I'm the portfolio AI assistant. Ask me anything about ${profile.name}, his skills, projects, or how to work together.`,
+      content: `Hi! I'm the portfolio AI assistant. Ask me anything about ${profile.name}, his skills, projects, or how to work together.`,
     },
   ]);
   const [input, setInput] = useState("");
@@ -33,15 +37,10 @@ export default function AIChat() {
     if (open) setTimeout(() => inputRef.current?.focus(), 200);
   }, [open]);
 
-  if (!isDesktop) {
-    return null;
-  }
+  const sendMessage = async (text: string) => {
+    if (!text.trim() || loading) return;
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!input.trim() || loading) return;
-
-    const userMsg: Message = { role: "user", content: input };
+    const userMsg: Message = { role: "user", content: text };
     setMessages((prev) => [...prev, userMsg]);
     setInput("");
     setLoading(true);
@@ -50,7 +49,7 @@ export default function AIChat() {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: input }),
+        body: JSON.stringify({ message: text }),
       });
       const data = await res.json();
       const reply: Message = {
@@ -63,11 +62,16 @@ export default function AIChat() {
         ...prev,
         {
           role: "assistant",
-          content: "Sorry, I hit an error! Use the contact section or GitHub to reach Manas directly.",
+          content: `Sorry, I hit an error! You can email Manas directly at ${profile.email}.`,
         },
       ]);
     }
     setLoading(false);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    sendMessage(input);
   };
 
   return (
@@ -75,8 +79,9 @@ export default function AIChat() {
       {/* Toggle button */}
       <button
         onClick={() => setOpen(!open)}
-        className="fixed bottom-6 right-20 z-50 w-12 h-12 rounded-2xl bg-accent/10 border border-accent/20 backdrop-blur-xl flex items-center justify-center hover:bg-accent/20 transition-all duration-200 active:scale-90 group"
-        title="AI Chat"
+        className="fixed bottom-6 right-6 md:right-20 z-50 w-12 h-12 rounded-2xl bg-accent/15 border border-accent/25 backdrop-blur-xl flex items-center justify-center hover:bg-accent/25 transition-all duration-200 active:scale-90 group"
+        title="AI Chat Assistant"
+        aria-label="Toggle AI Chat Assistant"
       >
         {open ? (
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-accent">
@@ -99,7 +104,7 @@ export default function AIChat() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed bottom-24 right-6 z-50 w-[380px] max-w-[calc(100vw-2rem)] h-[520px] max-h-[65vh] rounded-2xl overflow-hidden border border-white/[0.08] shadow-2xl shadow-black/50 flex flex-col"
+            className="fixed bottom-20 md:bottom-24 right-4 md:right-6 z-50 w-[380px] max-w-[calc(100vw-2rem)] h-[520px] max-h-[70vh] rounded-2xl overflow-hidden border border-white/[0.08] shadow-2xl shadow-black/50 flex flex-col"
             style={{ backgroundColor: "#0a0a14" }}
           >
             {/* Header */}
@@ -112,7 +117,7 @@ export default function AIChat() {
               </div>
               <div>
                 <p className="text-sm text-gray-200 font-medium">AI Assistant</p>
-                <p className="text-[11px] text-gray-600">Ask me anything</p>
+                <p className="text-[11px] text-gray-500">Ask about projects, skills, or hiring</p>
               </div>
             </div>
 
@@ -131,6 +136,22 @@ export default function AIChat() {
                   </div>
                 </div>
               ))}
+
+              {messages.length === 1 && !loading && (
+                <div className="pt-2 flex flex-wrap gap-1.5">
+                  {starterPrompts.map((prompt) => (
+                    <button
+                      key={prompt}
+                      type="button"
+                      onClick={() => sendMessage(prompt)}
+                      className="text-xs px-3 py-1.5 rounded-full bg-accent/10 hover:bg-accent/20 text-accent-light border border-accent/20 transition-colors cursor-pointer"
+                    >
+                      {prompt}
+                    </button>
+                  ))}
+                </div>
+              )}
+
               {loading && (
                 <div className="flex justify-start">
                   <div className="bg-white/[0.04] border border-white/[0.06] px-4 py-3 rounded-2xl">
@@ -152,8 +173,8 @@ export default function AIChat() {
                   ref={inputRef}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
-                  placeholder="Ask about the developer..."
-                  className="flex-1 bg-transparent text-sm text-gray-200 placeholder-gray-700 focus:outline-none"
+                  placeholder="Ask about Manas..."
+                  className="flex-1 bg-transparent text-sm text-gray-200 placeholder-gray-600 focus:outline-none"
                   disabled={loading}
                 />
                 <button

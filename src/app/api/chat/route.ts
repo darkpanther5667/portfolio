@@ -2,6 +2,23 @@ import { profile } from "@/lib/profile";
 
 export const maxDuration = 30;
 
+function getBuiltInReply(message: string): string {
+  const q = message.toLowerCase();
+  if (q.includes("built") || q.includes("project") || q.includes("work") || q.includes("grahbook") || q.includes("formlabs") || q.includes("codesnap")) {
+    return `${profile.name} has built Grahbook (an AI-powered WhatsApp commerce & UPI platform for Indian merchants), FormLabs (a visual drag-and-drop form builder with 1-click React/HTML export), and CodeSnap (an AI code screenshot & explanation tool). He is also currently building JEE OS and an AI Study Planner.`;
+  }
+  if (q.includes("stack") || q.includes("skill") || q.includes("tech")) {
+    return `${profile.name} specializes in Next.js, TypeScript, React, Node.js, PostgreSQL, Prisma, Firebase, TailwindCSS, Framer Motion, and AI/LLM integrations using OpenAI and GPT-4o-mini.`;
+  }
+  if (q.includes("hire") || q.includes("available") || q.includes("freelance") || q.includes("rate") || q.includes("cost")) {
+    return `Yes! ${profile.name} is currently available for freelance projects, full-stack product builds, and AI integrations. Rates depend on project scope — reach out at ${profile.email} or use the Contact section for a free initial consultation!`;
+  }
+  if (q.includes("contact") || q.includes("email") || q.includes("reach")) {
+    return `You can reach ${profile.name} directly at ${profile.email}, on GitHub (@${profile.githubHandle}), LinkedIn, or X (@agrawalmanas150), or by filling out the Quick Brief form in the Contact section.`;
+  }
+  return `${profile.name} is an ${profile.role} who ships full-stack web apps and AI products like Grahbook, FormLabs, and CodeSnap. Feel free to ask about his projects, tech stack, or how to hire him (${profile.email})!`;
+}
+
 export async function POST(req: Request) {
   const { message } = await req.json();
 
@@ -13,8 +30,7 @@ export async function POST(req: Request) {
 
   if (!apiKey) {
     return Response.json({
-      reply:
-        "Hey! This AI chat needs an OpenRouter API key to work. Use the contact section or GitHub in the meantime!",
+      reply: getBuiltInReply(message),
     });
   }
 
@@ -24,7 +40,7 @@ export async function POST(req: Request) {
       headers: {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
-        "HTTP-Referer": "https://portfolio-tan-zeta-1lewuen7gr.vercel.app",
+        "HTTP-Referer": "https://manasagrawal.online",
         "X-Title": "Portfolio AI Chat",
       },
       body: JSON.stringify({
@@ -36,18 +52,19 @@ export async function POST(req: Request) {
 
 About the developer:
 - Name: ${profile.name}
-- Role: AI Product Builder & Full Stack Developer
-- Skills: Next.js, TypeScript, React, Node.js, PostgreSQL, Prisma, AI/LLM integration, TailwindCSS, Framer Motion
-- Current projects: FormLabs (visual form builder), CodeSnap (AI code screenshot tool), JEE OS (AI exam prep)
+- Role: ${profile.role}
+- Skills: Next.js, TypeScript, React, Node.js, PostgreSQL, Prisma, Firebase, AI/LLM integration, TailwindCSS, Framer Motion
+- Shipped projects: Grahbook (WhatsApp commerce & UPI platform for Indian merchants), FormLabs (visual drag-and-drop form builder), CodeSnap (AI code screenshot tool)
+- In R&D: JEE OS (AI exam prep platform), AI Study Planner
 - Services: Web app development, AI integration, full-stack consulting
 - Process: Discovery → Design & Prototype → Build & Iterate → Deliver & Deploy
 - Availability: Open for freelance work, free consultation available
-- Contact: GitHub: ${profile.githubHandle}
+- Contact: Email: ${profile.email} | GitHub: ${profile.githubHandle}
 
 Rules:
 - Be enthusiastic and helpful
 - Keep responses concise (2-4 sentences)
-- If asked about hiring, encourage them to reach out via email
+- If asked about hiring, encourage them to reach out via ${profile.email} or the contact form
 - If asked about rates, say "varies by project scope — best to discuss on a free call"
 - Be honest — if you don't know something, say so
 - Never mention you're an AI unless asked directly`,
@@ -63,17 +80,14 @@ Rules:
     if (!res.ok) {
       console.error("OpenRouter error:", data);
       return Response.json({
-        reply: "The AI service is temporarily unavailable. Please use the contact section or GitHub.",
+        reply: getBuiltInReply(message),
       });
     }
 
     const reply = data.choices?.[0]?.message?.content;
-    return Response.json({ reply: reply || "No response generated." });
+    return Response.json({ reply: reply || getBuiltInReply(message) });
   } catch (err) {
     console.error("AI chat error:", err);
-    return Response.json(
-      { reply: "Sorry, I hit a hiccup! Please try again or use the contact section." },
-      { status: 500 }
-    );
+    return Response.json({ reply: getBuiltInReply(message) });
   }
 }

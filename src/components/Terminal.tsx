@@ -28,7 +28,7 @@ const commands: Record<string, { desc: string; handler: CommandHandler }> = {
       <div>
         <p className="text-gray-300">
           AI Product Builder &amp; Full Stack Developer. I build real products — from concept to deployment.
-          Specialize in Next.js, TypeScript, and AI integration. Currently shipping CodeSnap and FormLabs.
+          Specialize in Next.js, TypeScript, and AI integration. Shipped Grahbook, FormLabs, and CodeSnap.
         </p>
       </div>
     ),
@@ -42,7 +42,7 @@ const commands: Record<string, { desc: string; handler: CommandHandler }> = {
           <span className="text-gray-400">Frontend:</span>
           <span className="text-gray-200">React, Next.js, TypeScript, TailwindCSS</span>
           <span className="text-gray-400">Backend:</span>
-          <span className="text-gray-200">Node.js, PostgreSQL, Prisma, REST APIs</span>
+          <span className="text-gray-200">Node.js, PostgreSQL, Prisma, Firebase</span>
           <span className="text-gray-400">AI/ML:</span>
           <span className="text-gray-200">OpenAI, Vercel AI SDK, LLM Integration</span>
           <span className="text-gray-400">Tools:</span>
@@ -56,28 +56,36 @@ const commands: Record<string, { desc: string; handler: CommandHandler }> = {
     handler: () => (
       <div>
         <p className="text-accent/80 font-semibold mb-2">Featured Projects:</p>
-          <div className="space-y-2">
-            <div>
-              <span className="text-emerald-400 font-mono">FormLabs</span>
-              <span className="text-gray-500 ml-2">— Visual drag-and-drop form builder</span>
-            </div>
+        <div className="space-y-2">
+          <div>
+            <span className="text-emerald-400 font-mono">Grahbook</span>
+            <span className="text-gray-500 ml-2">— WhatsApp commerce for Indian merchants</span>
+          </div>
+          <div>
+            <span className="text-teal-400 font-mono">FormLabs</span>
+            <span className="text-gray-500 ml-2">— Visual drag-and-drop form builder</span>
+          </div>
           <div>
             <span className="text-sky-400 font-mono">CodeSnap</span>
             <span className="text-gray-500 ml-2">— AI-powered code screenshot tool</span>
           </div>
           <div>
             <span className="text-amber-400 font-mono">JEE OS</span>
-            <span className="text-gray-500 ml-2">— AI exam prep platform (in dev)</span>
+            <span className="text-gray-500 ml-2">— AI exam prep platform (in R&amp;D)</span>
           </div>
         </div>
-        <p className="text-gray-600 text-xs mt-2">Type &quot;open formlabs&quot; or &quot;open codesnap&quot; to visit.</p>
+        <p className="text-gray-600 text-xs mt-2">Type &quot;open grahbook&quot;, &quot;open formlabs&quot;, or &quot;open codesnap&quot; to visit.</p>
       </div>
     ),
   },
   open: {
-    desc: "Open a project (formlabs | codesnap)",
+    desc: "Open a project (grahbook | formlabs | codesnap)",
     handler: (args) => {
       const target = args[0];
+      if (target === "grahbook") {
+        if (typeof window !== "undefined") window.open("https://grahbook.vercel.app", "_blank");
+        return <span className="text-emerald-400">Opening Grahbook...</span>;
+      }
       if (target === "formlabs") {
         if (typeof window !== "undefined") window.open("https://formlabs-eight.vercel.app", "_blank");
         return <span className="text-emerald-400">Opening FormLabs...</span>;
@@ -86,7 +94,7 @@ const commands: Record<string, { desc: string; handler: CommandHandler }> = {
         if (typeof window !== "undefined") window.open("https://codesnap-eta.vercel.app", "_blank");
         return <span className="text-sky-400">Opening CodeSnap...</span>;
       }
-      return <span className="text-red-400">Unknown project. Try &quot;formlabs&quot; or &quot;codesnap&quot;.</span>;
+      return <span className="text-red-400">Unknown project. Try &quot;grahbook&quot;, &quot;formlabs&quot;, or &quot;codesnap&quot;.</span>;
     },
   },
   contact: {
