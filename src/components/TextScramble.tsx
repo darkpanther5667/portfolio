@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
 interface TextScrambleProps {
   text: string;
@@ -10,7 +10,7 @@ interface TextScrambleProps {
   tag?: "span" | "h1" | "h2" | "h3" | "p";
 }
 
-const chars = "!@#$%^&*()_+-=[]{}|;:,.<>?0123456789";
+const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
 export default function TextScramble({
   text,
@@ -19,66 +19,77 @@ export default function TextScramble({
   speed = 30,
   tag: Tag = "span",
 }: TextScrambleProps) {
-  const [displayText, setDisplayText] = useState("");
-  const [isComplete, setIsComplete] = useState(false);
-  const [hasStarted, setHasStarted] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
+  const elRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasStarted) {
-          setHasStarted(true);
+    const el = elRef.current;
+    if (!el) return;
+
+    // Respect reduced motion
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      el.textContent = text;
+      return;
+    }
+
+    let rafId: number | null = null;
+    let startTime: number | null = null;
+    let lastTick = 0;
+    const totalSteps = text.length * 2;
+    const stepDuration = Math.max(16, speed);
+
+    const step = (timestamp: number) => {
+      if (startTime === null) {
+        startTime = timestamp;
+      }
+
+      const elapsed = timestamp - startTime;
+      if (elapsed < delay) {
+        rafId = requestAnimationFrame(step);
+        return;
+      }
+
+      if (timestamp - lastTick >= stepDuration) {
+        lastTick = timestamp;
+        const activeElapsed = elapsed - delay;
+        const progress = Math.min(activeElapsed / (totalSteps * (stepDuration * 0.65)), 1);
+        const revealedCount = progress * text.length;
+
+        if (progress >= 1) {
+          el.textContent = text;
+          return;
         }
-      },
-      { threshold: 0.5 }
-    );
 
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [hasStarted]);
-
-  useEffect(() => {
-    if (!hasStarted) return;
-
-    let timeout: NodeJS.Timeout;
-    let iteration = 0;
-
-    const startTimeout = setTimeout(() => {
-      const interval = setInterval(() => {
-        setDisplayText(
-          text
-            .split("")
-            .map((char, index) => {
-              if (char === " ") return " ";
-              if (index < iteration) return text[index];
-              return chars[Math.floor(Math.random() * chars.length)];
-            })
-            .join("")
-        );
-
-        if (iteration >= text.length) {
-          clearInterval(interval);
-          setIsComplete(true);
+        let out = "";
+        for (let i = 0; i < text.length; i++) {
+          if (text[i] === " ") {
+            out += " ";
+          } else if (i < revealedCount) {
+            out += text[i];
+          } else {
+            out += chars[(Math.random() * chars.length) | 0];
+          }
         }
+        el.textContent = out;
+      }
 
-        iteration += 1 / 2;
-      }, speed);
+      rafId = requestAnimationFrame(step);
+    };
 
-      timeout = interval;
-    }, delay);
+    rafId = requestAnimationFrame(step);
 
     return () => {
-      clearTimeout(startTimeout);
-      clearInterval(timeout);
+      if (rafId !== null) cancelAnimationFrame(rafId);
     };
-  }, [hasStarted, text, delay, speed]);
+  }, [text, delay, speed]);
 
   return (
-    <div ref={ref}>
-      <Tag className={`${className} ${!isComplete ? "font-mono" : ""}`}>
-        {displayText || "\u00A0"}
+    <span className="inline-block" style={{ contain: "layout style" }}>
+      <Tag
+        ref={elRef as React.RefObject<never>}
+        className={className}
+      >
+        {text}
       </Tag>
-    </div>
+    </span>
   );
 }

@@ -140,8 +140,12 @@ export default function Hero3D() {
     };
 
     const timer = setTimeout(() => {
-      init();
-    }, 350);
+      if ("requestIdleCallback" in window) {
+        window.requestIdleCallback(() => init(), { timeout: 1000 });
+      } else {
+        init();
+      }
+    }, 950);
 
     return () => {
       disposed = true;
