@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Float } from "@react-three/drei";
 import * as THREE from "three";
@@ -224,12 +224,31 @@ function WorkspaceScene() {
 
 export default function Workspace3D() {
   const isDesktop = useDesktopEffects();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    if (!isDesktop || !containerRef.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setInView(entry.isIntersecting),
+      { threshold: 0.05 }
+    );
+    observer.observe(containerRef.current);
+    return () => observer.disconnect();
+  }, [isDesktop]);
 
   if (!isDesktop) return null;
 
   return (
-    <div className="w-full h-[400px] sm:h-[500px] rounded-3xl overflow-hidden glass border border-white/[0.06]">
-      <Canvas camera={{ position: [0, 0.5, 3.5], fov: 45 }}>
+    <div
+      ref={containerRef}
+      className="w-full h-[400px] sm:h-[500px] rounded-3xl overflow-hidden glass border border-white/[0.06]"
+    >
+      <Canvas
+        camera={{ position: [0, 0.5, 3.5], fov: 45 }}
+        dpr={[1, 1.5]}
+        frameloop={inView ? "always" : "never"}
+      >
         <WorkspaceScene />
       </Canvas>
     </div>

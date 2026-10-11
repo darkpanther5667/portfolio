@@ -107,7 +107,7 @@ function BuildingCard({ project, index }: { project: (typeof projects)[0]; index
 
 export default function CurrentlyBuilding() {
   return (
-    <section id="building" className="py-24 md:py-28 px-6 relative">
+    <section id="building" className="section-deferred py-24 md:py-28 px-6 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-accent/[0.015] via-transparent to-accent/[0.015] pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative">

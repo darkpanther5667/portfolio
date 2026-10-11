@@ -104,28 +104,33 @@ function forceSimulation(nodes: TechNode[], canvasW: number, canvasH: number) {
 
 export default function TechStackGraph() {
   const canvasRef = useRef<HTMLDivElement>(null);
-  const nodesRef = useRef<TechNode[]>([]);
-  const animRef = useRef<number>(0);
+  const [nodes, setNodes] = useState<TechNode[]>([]);
   const [hovered, setHovered] = useState<string | null>(null);
-  const [initialized, setInitialized] = useState(false);
 
   const initNodes = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
     const rect = canvas.getBoundingClientRect();
-    const cx = rect.width / 2;
-    const cy = rect.height / 2;
+    const width = rect.width || 800;
+    const height = rect.height || 400;
+    const cx = width / 2;
+    const cy = height / 2;
 
-    nodesRef.current = techNodes.map((t, i) => ({
+    const initialNodes: TechNode[] = techNodes.map((t, i) => ({
       ...t,
-      x: cx + (Math.cos((i / techNodes.length) * Math.PI * 2) * 120) + (Math.random() - 0.5) * 40,
-      y: cy + (Math.sin((i / techNodes.length) * Math.PI * 2) * 120) + (Math.random() - 0.5) * 40,
+      x: cx + Math.cos((i / techNodes.length) * Math.PI * 2) * 120 + (((i * 7) % 11) - 5) * 4,
+      y: cy + Math.sin((i / techNodes.length) * Math.PI * 2) * 120 + (((i * 13) % 11) - 5) * 4,
       vx: 0,
       vy: 0,
     }));
 
-    setInitialized(true);
+    // Settle layout synchronously once instead of forcing layout via getBoundingClientRect() every frame
+    for (let step = 0; step < 80; step++) {
+      forceSimulation(initialNodes, width, height);
+    }
+
+    setNodes(initialNodes);
   }, []);
 
   useEffect(() => {
@@ -135,45 +140,6 @@ export default function TechStackGraph() {
     return () => window.removeEventListener("resize", handleResize);
   }, [initNodes]);
 
-  useEffect(() => {
-    if (!initialized) return;
-
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    let settled = false;
-    let settleFrames = 0;
-
-    const animate = () => {
-      if (settled) return;
-
-      const rect = canvas.getBoundingClientRect();
-      forceSimulation(nodesRef.current, rect.width, rect.height);
-
-      // Check if nodes have settled (low total velocity)
-      const totalVelocity = nodesRef.current.reduce(
-        (sum, n) => sum + Math.abs(n.vx) + Math.abs(n.vy),
-        0
-      );
-
-      if (totalVelocity < 0.5) {
-        settleFrames++;
-        if (settleFrames > 60) {
-          settled = true;
-          return;
-        }
-      } else {
-        settleFrames = 0;
-      }
-
-      animRef.current = requestAnimationFrame(animate);
-    };
-
-    animRef.current = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(animRef.current);
-  }, [initialized]);
-
-  const nodes = nodesRef.current;
   const connectedToHovered = hovered
     ? connections
         .filter(([a, b]) => a === hovered || b === hovered)

@@ -11,12 +11,29 @@ interface CountUpProps {
 
 export default function CountUp({ from, to, duration, start = true }: CountUpProps) {
   const [count, setCount] = useState(from);
+  const [inView, setInView] = useState(false);
+  const spanRef = useRef<HTMLSpanElement>(null);
   const rafId = useRef<number | null>(null);
   const startTime = useRef<number | null>(null);
 
   useEffect(() => {
-    if (!start) {
-      setCount(from);
+    const el = spanRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.2 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!start || !inView) {
       return;
     }
 
@@ -39,7 +56,7 @@ export default function CountUp({ from, to, duration, start = true }: CountUpPro
     return () => {
       if (rafId.current) cancelAnimationFrame(rafId.current);
     };
-  }, [from, to, duration, start]);
+  }, [from, to, duration, start, inView]);
 
-  return <>{count.toLocaleString()}</>;
+  return <span ref={spanRef}>{count.toLocaleString()}</span>;
 }

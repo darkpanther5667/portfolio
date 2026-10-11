@@ -122,23 +122,22 @@ export default function ProjectShowcase() {
                 />
 
                 {/* Floating dots */}
-                <div className="absolute inset-0">
-                  {Array.from({ length: 8 }).map((_, i) => (
-                    <motion.div
+                <div className="absolute inset-0 pointer-events-none">
+                  {[
+                    { left: "15%", top: "22%", delay: "0s" },
+                    { left: "28%", top: "68%", delay: "0.5s" },
+                    { left: "46%", top: "18%", delay: "1.1s" },
+                    { left: "64%", top: "75%", delay: "1.6s" },
+                    { left: "78%", top: "30%", delay: "0.3s" },
+                    { left: "85%", top: "60%", delay: "0.9s" },
+                  ].map((dot, i) => (
+                    <div
                       key={i}
-                      className="absolute w-1 h-1 rounded-full bg-white/20"
+                      className="absolute w-1 h-1 rounded-full bg-white/25 animate-twinkle"
                       style={{
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
-                      }}
-                      animate={{
-                        y: [0, -10, 0],
-                        opacity: [0.2, 0.5, 0.2],
-                      }}
-                      transition={{
-                        duration: 3 + Math.random() * 2,
-                        repeat: Infinity,
-                        delay: Math.random() * 2,
+                        left: dot.left,
+                        top: dot.top,
+                        animationDelay: dot.delay,
                       }}
                     />
                   ))}

@@ -63,13 +63,17 @@ export default function ScrollBackgroundShift() {
       {isDesktop && (
         <>
           <div
-            className="absolute -top-1/4 -right-1/4 w-[600px] h-[600px] rounded-full blur-[200px] transition-all duration-1000 ease-out"
-            style={{ background: current.glow }}
+            className="absolute -top-1/4 -right-1/4 w-[600px] h-[600px] rounded-full transition-opacity duration-1000 ease-out"
+            style={{
+              background: `radial-gradient(circle, ${current.glow} 0%, transparent 70%)`,
+            }}
           />
 
           <div
-            className="absolute -bottom-1/4 -left-1/4 w-[400px] h-[400px] rounded-full blur-[150px] transition-all duration-1000 ease-out"
-            style={{ background: current.glow }}
+            className="absolute -bottom-1/4 -left-1/4 w-[400px] h-[400px] rounded-full transition-opacity duration-1000 ease-out"
+            style={{
+              background: `radial-gradient(circle, ${current.glow} 0%, transparent 70%)`,
+            }}
           />
         </>
       )}

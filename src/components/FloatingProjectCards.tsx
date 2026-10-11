@@ -53,32 +53,28 @@ function DesktopCard({
   tag,
   gradient,
   accent,
+  position,
   delay,
   tilt,
 }: (typeof cards)[0]) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
-        duration: 0.8,
-        delay: 0.8 + Math.abs(delay) * 0.1,
+        duration: 0.7,
+        delay: 0.5 + Math.abs(delay) * 0.08,
         ease: "easeOut" as const,
       }}
-      className="absolute hidden lg:block"
+      className={`absolute hidden lg:block ${position}`}
       style={{ zIndex: 3 }}
     >
-      <motion.div
-        animate={{ y: [0, -6, 3, 0] }}
-        transition={{
-          duration: 5 + Math.abs(delay),
-          repeat: Infinity,
-          ease: "easeInOut",
-          delay: delay * 0.5,
+      <div
+        className="w-[180px] group cursor-default animate-float transition-transform duration-300 hover:scale-105 hover:-translate-y-2"
+        style={{
+          animationDelay: `${delay * 0.5}s`,
+          transform: `rotate(${tilt}deg)`,
         }}
-        whileHover={{ scale: 1.05, y: -8, rotate: 0 }}
-        className="w-[180px] group cursor-default"
-        style={{ transform: `rotate(${tilt}deg)` }}
       >
         <div className={`h-24 rounded-xl bg-gradient-to-br ${gradient} flex items-center justify-center relative overflow-hidden`}>
           <div className="flex gap-1.5 absolute top-2.5 left-3">
@@ -96,7 +92,7 @@ function DesktopCard({
             <p className="text-[8px] text-white/40 mt-0.5">{tag}</p>
           </div>
         </div>
-      </motion.div>
+      </div>
     </motion.div>
   );
 }

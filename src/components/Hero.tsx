@@ -7,6 +7,8 @@ import MagneticButton from "./MagneticButton";
 import TextScramble from "./TextScramble";
 import { useDesktopEffects } from "@/lib/use-desktop-effects";
 
+import BackgroundEffects from "./BackgroundEffects";
+
 const Hero3D = dynamic(
   () => import("./Hero3D"),
   { ssr: false }
@@ -15,26 +17,22 @@ const FloatingProjectCards = dynamic(
   () => import("./FloatingProjectCards"),
   { ssr: false }
 );
-const BackgroundEffects = dynamic(
-  () => import("./BackgroundEffects"),
-  { ssr: false }
-);
 const MouseGlow = dynamic(() => import("./MouseGlow"), { ssr: false });
 
 const stagger = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { staggerChildren: 0.12, delayChildren: 0.2 },
+    transition: { staggerChildren: 0.08, delayChildren: 0.05 },
   },
 };
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 16 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.6, ease: "easeOut" as const },
+    transition: { duration: 0.45, ease: "easeOut" as const },
   },
 };
 
@@ -42,7 +40,7 @@ const fadeIn = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { duration: 0.8, ease: "easeOut" as const },
+    transition: { duration: 0.6, ease: "easeOut" as const },
   },
 };
 
@@ -93,11 +91,17 @@ export default function Hero() {
 
         {/* Main Headline */}
         <motion.div variants={fadeUp} className="relative">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[50%] bg-accent/5 blur-[120px] rounded-full pointer-events-none" />
+          <div
+            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] rounded-full pointer-events-none"
+            style={{
+              background:
+                "radial-gradient(ellipse at center, rgba(59, 130, 246, 0.08) 0%, transparent 70%)",
+            }}
+          />
 
           <h1 className="text-[clamp(2rem,8vw,7.5rem)] font-bold tracking-[-0.04em] leading-[0.92] mb-5 sm:mb-6">
             <span className="block text-sm sm:text-lg md:text-xl font-medium tracking-normal text-accent mb-2">
-              <TextScramble text={profile.name} delay={200} speed={40} />
+              <TextScramble text={profile.name} delay={100} speed={45} />
             </span>
             <span className="block">Building intelligent</span>
             <span className="block">

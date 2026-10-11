@@ -43,7 +43,7 @@ function StatItem({ value, label, suffix, index }: { value: number; label: strin
 
 export default function Stats() {
   return (
-    <section id="stats" className="py-12 sm:py-16 md:py-20 px-5 sm:px-6 relative">
+    <section id="stats" className="section-deferred py-12 sm:py-16 md:py-20 px-5 sm:px-6 relative">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent" />
 
       <div className="max-w-6xl mx-auto">

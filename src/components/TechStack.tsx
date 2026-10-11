@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Reveal from "./Reveal";
 import dynamic from "next/dynamic";
@@ -33,9 +34,31 @@ const technologies = [
 
 export default function TechStack() {
   const isDesktop = useDesktopEffects();
+  const sectionRef = useRef<HTMLElement>(null);
+  const [loadGraph, setLoadGraph] = useState(false);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setLoadGraph(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "300px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <section id="skills" className="py-16 sm:py-24 md:py-28 px-5 sm:px-6 relative">
+    <section
+      id="skills"
+      ref={sectionRef}
+      className="section-deferred py-16 sm:py-24 md:py-28 px-5 sm:px-6 relative"
+    >
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/[0.01] to-transparent pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative">
@@ -57,7 +80,7 @@ export default function TechStack() {
         </Reveal>
 
         {/* Interactive graph — desktop only */}
-        {isDesktop && (
+        {isDesktop && loadGraph && (
           <Reveal>
             <TechStackGraph />
           </Reveal>

@@ -1,12 +1,13 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { profile } from "@/lib/profile";
 import Reveal from "./Reveal";
-import GitHubActivity from "./GitHubActivity";
 import dynamic from "next/dynamic";
 
 const Workspace3D = dynamic(() => import("./Workspace3D"), { ssr: false });
+const GitHubActivity = dynamic(() => import("./GitHubActivity"), { ssr: false });
 
 const staggerContainer = {
   hidden: { opacity: 0 },
@@ -53,8 +54,27 @@ const stats = [
 ];
 
 export default function About() {
+  const heavyRef = useRef<HTMLDivElement>(null);
+  const [loadHeavy, setLoadHeavy] = useState(false);
+
+  useEffect(() => {
+    const el = heavyRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setLoadHeavy(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "350px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section id="about" className="py-16 sm:py-24 md:py-32 px-5 sm:px-6 relative">
+    <section id="about" className="section-deferred py-16 sm:py-24 md:py-32 px-5 sm:px-6 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/[0.02] to-transparent pointer-events-none" />
 
       <div className="max-w-6xl mx-auto relative">
@@ -131,7 +151,7 @@ export default function About() {
             viewport={{ once: true, margin: "-80px" }}
             className="space-y-10 md:space-y-12"
           >
-            {timeline.map((item, index) => (
+            {timeline.map((item) => (
               <motion.div
                 key={item.year}
                 variants={staggerItem}
@@ -157,15 +177,17 @@ export default function About() {
           </motion.div>
         </div>
 
-        <Reveal>
-          <div className="mt-12 sm:mt-16">
-            <h3 className="text-xl font-semibold mb-6 text-center">My Workspace</h3>
-            <Workspace3D />
-          </div>
-        </Reveal>
+        <div ref={heavyRef}>
+          <Reveal>
+            <div className="mt-12 sm:mt-16">
+              <h3 className="text-xl font-semibold mb-6 text-center">My Workspace</h3>
+              {loadHeavy && <Workspace3D />}
+            </div>
+          </Reveal>
 
-        <div className="mt-12 sm:mt-16">
-          <GitHubActivity />
+          <div className="mt-12 sm:mt-16">
+            {loadHeavy && <GitHubActivity />}
+          </div>
         </div>
       </div>
     </section>

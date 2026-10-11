@@ -194,7 +194,7 @@ function ProjectCard({ project, index }: { project: (typeof projects)[0]; index:
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-16 sm:py-24 md:py-32 px-5 sm:px-6 relative">
+    <section id="projects" className="section-deferred py-16 sm:py-24 md:py-32 px-5 sm:px-6 relative">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
 
       <div className="max-w-6xl mx-auto">

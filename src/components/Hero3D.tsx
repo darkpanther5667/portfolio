@@ -11,14 +11,18 @@ export default function Hero3D() {
   useEffect(() => {
     if (!isDesktop) return;
 
-    let animId: number;
+    let animId: number | null = null;
+    let isVisible = true;
+    let disposed = false;
     let mouseX = 0;
     let mouseY = 0;
     let targetMouseX = 0;
     let targetMouseY = 0;
+    let cleanupFn: (() => void) | undefined;
 
     const init = async () => {
       const THREE = await import("three");
+      if (disposed) return;
       const canvas = canvasRef.current;
       if (!canvas) return;
 
@@ -34,10 +38,11 @@ export default function Hero3D() {
       const renderer = new THREE.WebGLRenderer({
         canvas,
         alpha: true,
-        antialias: true,
+        antialias: window.devicePixelRatio < 2,
+        powerPreference: "high-performance",
       });
       renderer.setSize(canvas.clientWidth, canvas.clientHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 
       // --- Main Icosahedron (wireframe only) ---
       const icoGeo = new THREE.IcosahedronGeometry(1.6, 1);
@@ -61,24 +66,12 @@ export default function Hero3D() {
       const ring = new THREE.Mesh(ringGeo, ringMat);
       scene.add(ring);
 
-      // --- Lights ---
-      const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-      scene.add(ambientLight);
-
-      const pointLight1 = new THREE.PointLight(0x3b82f6, 2, 10);
-      pointLight1.position.set(3, 3, 3);
-      scene.add(pointLight1);
-
-      const pointLight2 = new THREE.PointLight(0x8b5cf6, 1.5, 10);
-      pointLight2.position.set(-3, -2, 2);
-      scene.add(pointLight2);
-
       // --- Mouse tracking ---
       const handleMouseMove = (e: MouseEvent) => {
         targetMouseX = (e.clientX / window.innerWidth) * 2 - 1;
         targetMouseY = -(e.clientY / window.innerHeight) * 2 + 1;
       };
-      window.addEventListener("mousemove", handleMouseMove);
+      window.addEventListener("mousemove", handleMouseMove, { passive: true });
 
       // --- Resize ---
       const handleResize = () => {
@@ -96,6 +89,10 @@ export default function Hero3D() {
       const clock = new THREE.Clock();
 
       const animate = () => {
+        if (!isVisible || disposed) {
+          animId = null;
+          return;
+        }
         const t = clock.getElapsedTime();
 
         mouseX += (targetMouseX - mouseX) * 0.04;
@@ -114,19 +111,42 @@ export default function Hero3D() {
         animId = requestAnimationFrame(animate);
       };
 
-      animate();
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          isVisible = entry.isIntersecting;
+          if (isVisible && animId === null) {
+            clock.getDelta();
+            animId = requestAnimationFrame(animate);
+          }
+        },
+        { threshold: 0.05 }
+      );
+      observer.observe(canvas);
 
-      return () => {
+      animId = requestAnimationFrame(animate);
+
+      cleanupFn = () => {
+        observer.disconnect();
         window.removeEventListener("mousemove", handleMouseMove);
         window.removeEventListener("resize", handleResize);
-        cancelAnimationFrame(animId);
+        if (animId !== null) cancelAnimationFrame(animId);
+        icoGeo.dispose();
+        edgesGeo.dispose();
+        edgesMat.dispose();
+        ringGeo.dispose();
+        ringMat.dispose();
         renderer.dispose();
       };
     };
 
-    const cleanup = init();
+    const timer = setTimeout(() => {
+      init();
+    }, 350);
+
     return () => {
-      cleanup.then((fn) => fn?.());
+      disposed = true;
+      clearTimeout(timer);
+      cleanupFn?.();
     };
   }, [isDesktop]);
 

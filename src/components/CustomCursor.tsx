@@ -1,68 +1,36 @@
 "use client";
 
-import { useEffect, useRef, useCallback, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useDesktopEffects } from "@/lib/use-desktop-effects";
 
 export default function CustomCursor() {
   const isDesktop = useDesktopEffects();
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [isHovering, setIsHovering] = useState(false);
+  const isHoveringRef = useRef(false);
   const mousePos = useRef({ x: -100, y: -100 });
   const prevPos = useRef({ x: -100, y: -100 });
   const velocity = useRef({ x: 0, y: 0 });
   const trailPoints = useRef<{ x: number; y: number; age: number }[]>([]);
-
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    const dx = e.clientX - prevPos.current.x;
-    const dy = e.clientY - prevPos.current.y;
-    velocity.current = { x: dx, y: dy };
-    prevPos.current = { x: mousePos.current.x, y: mousePos.current.y };
-    mousePos.current = { x: e.clientX, y: e.clientY };
-
-    trailPoints.current.push({ x: e.clientX, y: e.clientY, age: 0 });
-    if (trailPoints.current.length > 20) {
-      trailPoints.current.shift();
-    }
-  }, []);
-
-  const handleMouseOver = useCallback((e: MouseEvent) => {
-    const target = e.target as HTMLElement;
-    const interactive = target.closest(
-      'a, button, [data-cursor-interactive], input, textarea, select, [role="button"]'
-    );
-    setIsHovering(Boolean(interactive));
-  }, []);
-
-  useEffect(() => {
-    if (!isDesktop) return;
-
-    document.body.style.cursor = "none";
-
-    window.addEventListener("mousemove", handleMouseMove);
-    window.addEventListener("mouseover", handleMouseOver);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("mouseover", handleMouseOver);
-      document.body.style.cursor = "auto";
-    };
-  }, [handleMouseMove, handleMouseOver, isDesktop]);
 
   useEffect(() => {
     if (!isDesktop) return;
 
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d")!;
-    let animId: number;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    document.body.style.cursor = "none";
+
+    let animId: number | null = null;
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       canvas.width = window.innerWidth * dpr;
       canvas.height = window.innerHeight * dpr;
       canvas.style.width = `${window.innerWidth}px`;
       canvas.style.height = `${window.innerHeight}px`;
-      ctx.scale(dpr, dpr);
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
 
     resize();
@@ -72,6 +40,9 @@ export default function CustomCursor() {
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
 
       const { x, y } = mousePos.current;
+      const isHovering = isHoveringRef.current;
+      velocity.current.x *= 0.85;
+      velocity.current.y *= 0.85;
       const speed = Math.sqrt(velocity.current.x ** 2 + velocity.current.y ** 2);
       const targetRadius = isHovering ? 28 : 14;
       const targetColor = isHovering ? "rgba(59, 130, 246, 0.15)" : "rgba(255, 255, 255, 0.06)";
@@ -84,15 +55,6 @@ export default function CustomCursor() {
       ctx.save();
       ctx.translate(x, y);
       ctx.rotate(angle);
-
-      // Outer glow
-      const glowGrad = ctx.createRadialGradient(0, 0, 0, 0, 0, targetRadius * 2.5);
-      glowGrad.addColorStop(0, isHovering ? "rgba(59, 130, 246, 0.08)" : "rgba(255, 255, 255, 0.03)");
-      glowGrad.addColorStop(1, "transparent");
-      ctx.fillStyle = glowGrad;
-      ctx.beginPath();
-      ctx.arc(0, 0, targetRadius * 2.5, 0, Math.PI * 2);
-      ctx.fill();
 
       // Main shape - deformed circle based on velocity
       ctx.beginPath();
@@ -113,31 +75,74 @@ export default function CustomCursor() {
 
       // --- Trail ---
       const points = trailPoints.current;
+      let writeIdx = 0;
       for (let i = 0; i < points.length; i++) {
         const p = points[i];
         p.age++;
-        const alpha = Math.max(0, 1 - p.age / 20);
-        const size = Math.max(0.5, (1 - p.age / 20) * 3);
+        if (p.age < 16) {
+          const alpha = 1 - p.age / 16;
+          const size = Math.max(0.5, alpha * 3);
 
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(59, 130, 246, ${alpha * 0.4})`;
-        ctx.fill();
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(59, 130, 246, ${alpha * 0.4})`;
+          ctx.fill();
+          points[writeIdx++] = p;
+        }
       }
+      points.length = writeIdx;
 
-      // Remove dead points
-      trailPoints.current = points.filter((p) => p.age < 20);
-
-      animId = requestAnimationFrame(draw);
+      if (points.length > 0 || speed > 0.1) {
+        animId = requestAnimationFrame(draw);
+      } else {
+        animId = null;
+      }
     };
 
-    animId = requestAnimationFrame(draw);
+    const startLoop = () => {
+      if (animId === null) {
+        animId = requestAnimationFrame(draw);
+      }
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      const dx = e.clientX - prevPos.current.x;
+      const dy = e.clientY - prevPos.current.y;
+      velocity.current = { x: dx, y: dy };
+      prevPos.current = { x: mousePos.current.x, y: mousePos.current.y };
+      mousePos.current = { x: e.clientX, y: e.clientY };
+
+      trailPoints.current.push({ x: e.clientX, y: e.clientY, age: 0 });
+      if (trailPoints.current.length > 16) {
+        trailPoints.current.shift();
+      }
+      startLoop();
+    };
+
+    const handleMouseOver = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      const interactive = Boolean(
+        target?.closest(
+          'a, button, [data-cursor-interactive], input, textarea, select, [role="button"]'
+        )
+      );
+      if (interactive !== isHoveringRef.current) {
+        isHoveringRef.current = interactive;
+        startLoop();
+      }
+    };
+
+    window.addEventListener("mousemove", handleMouseMove, { passive: true });
+    window.addEventListener("mouseover", handleMouseOver, { passive: true });
 
     return () => {
-      cancelAnimationFrame(animId);
+      if (animId !== null) cancelAnimationFrame(animId);
       window.removeEventListener("resize", resize);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseover", handleMouseOver);
+      document.body.style.cursor = "auto";
     };
-  }, [isDesktop, isHovering]);
+  }, [isDesktop]);
 
   if (!isDesktop) return null;
 
