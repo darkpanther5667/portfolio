@@ -59,21 +59,19 @@ const services = [
 export default function Services() {
   return (
     <section id="services" className="section-deferred py-16 sm:py-24 md:py-28 px-5 sm:px-6 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-accent/[0.01] via-transparent to-accent/[0.01] pointer-events-none" />
-
       <div className="max-w-6xl mx-auto">
         <Reveal>
           <div className="mb-12 md:mb-14">
-            <span className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-3 block">
+            <span className="text-xs font-mono uppercase tracking-[0.2em] text-zinc-500 mb-3 block">
               What I Do
             </span>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1]">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-[-0.03em] leading-[1.08] text-white">
               Services{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-light">
-                I offer
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 via-indigo-200 to-zinc-500">
+                I offer.
               </span>
             </h2>
-            <p className="text-gray-500 text-base mt-3 max-w-2xl">
+            <p className="text-zinc-400 text-base mt-3 max-w-2xl">
               From concept to deployment — I build products that solve real problems.
             </p>
           </div>
@@ -86,17 +84,17 @@ export default function Services() {
           viewport={{ once: true, margin: "-80px" }}
           className="grid md:grid-cols-3 gap-4 md:gap-5"
         >
-          {services.map((s, i) => (
+          {services.map((s) => (
             <motion.div
               key={s.title}
               variants={staggerItem}
-              className="glass-hover rounded-xl p-6 md:p-7 border border-white/[0.04] group"
+              className="glass-hover rounded-2xl p-6 md:p-7 border border-white/[0.06] group"
             >
-              <div className="w-10 h-10 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center text-accent mb-4 group-hover:bg-accent/15 transition-colors">
+              <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-zinc-200 mb-5 group-hover:bg-white/[0.08] group-hover:text-white transition-colors">
                 {s.icon}
               </div>
-              <h3 className="text-lg font-semibold text-white mb-2">{s.title}</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">{s.desc}</p>
+              <h3 className="text-lg font-semibold text-white mb-2 tracking-tight">{s.title}</h3>
+              <p className="text-zinc-400 text-sm leading-relaxed">{s.desc}</p>
             </motion.div>
           ))}
         </motion.div>

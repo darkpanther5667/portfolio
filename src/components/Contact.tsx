@@ -87,13 +87,12 @@ export default function Contact() {
 
   return (
     <section id="contact" className="section-deferred py-16 sm:py-24 md:py-32 px-5 sm:px-6 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/[0.02] to-accent/[0.04] pointer-events-none" />
       {isDesktop && (
         <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full pointer-events-none"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full pointer-events-none"
           style={{
             background:
-              "radial-gradient(circle, rgba(59, 130, 246, 0.06) 0%, transparent 70%)",
+              "radial-gradient(ellipse, rgba(99, 102, 241, 0.06) 0%, transparent 70%)",
           }}
         />
       )}
@@ -101,20 +100,20 @@ export default function Contact() {
       <div className="max-w-4xl mx-auto relative">
         <Reveal>
           <div className="text-center">
-            <span className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-5 block">
+            <span className="text-xs font-mono uppercase tracking-[0.2em] text-zinc-500 mb-5 block">
               Contact
             </span>
 
-            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-[-0.03em] leading-[0.95] mb-5">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-[-0.035em] leading-[0.98] mb-5 text-white">
               Let&apos;s build your next{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent via-accent-light to-white">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 via-indigo-200 to-zinc-500">
                 product
               </span>
               <br />
               together.
             </h2>
 
-            <p className="text-gray-400 text-base md:text-lg max-w-xl mx-auto mb-8 leading-relaxed">
+            <p className="text-zinc-400 text-base md:text-lg max-w-xl mx-auto mb-8 leading-relaxed">
               Have a project, idea, or role in mind? Copy my email in one click or send a quick brief below.
             </p>
           </div>
@@ -126,7 +125,7 @@ export default function Contact() {
             <button
               type="button"
               onClick={copyEmail}
-              className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-accent text-white text-sm font-medium transition-all duration-300 hover:shadow-[0_0_30px_-5px_rgba(59,130,246,0.5)] active:scale-95 cursor-pointer"
+              className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-white hover:bg-zinc-200 text-zinc-950 text-sm font-medium transition-all duration-200 shadow-[0_0_30px_-5px_rgba(255,255,255,0.22)] active:scale-95 cursor-pointer"
             >
               {copied ? (
                 <>
@@ -152,7 +151,7 @@ export default function Contact() {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-3 glass text-gray-300 rounded-full text-sm font-medium transition-all duration-300 hover:bg-white/[0.08] border border-white/10 hover:border-accent/30 hover:text-white active:scale-95"
+                className="inline-flex items-center gap-2 px-5 py-3 glass text-zinc-300 rounded-full text-sm font-medium transition-all duration-300 hover:bg-white/[0.08] border border-white/10 hover:border-white/20 hover:text-white active:scale-95"
               >
                 {link.icon}
                 {link.label}
@@ -169,10 +168,10 @@ export default function Contact() {
           >
             <div className="flex items-center justify-between mb-5">
               <div>
-                <h3 className="text-base sm:text-lg font-semibold text-white">
+                <h3 className="text-base sm:text-lg font-semibold text-white tracking-tight">
                   Send a Quick Brief
                 </h3>
-                <p className="text-xs text-gray-500 mt-0.5">
+                <p className="text-xs text-zinc-500 mt-0.5">
                   Replies within 24 hours &bull; Free initial consultation
                 </p>
               </div>
@@ -184,7 +183,7 @@ export default function Contact() {
 
             <div className="grid sm:grid-cols-2 gap-4 mb-4">
               <div>
-                <label htmlFor="contact-name" className="block text-xs text-gray-400 mb-1.5 font-mono">
+                <label htmlFor="contact-name" className="block text-xs text-zinc-400 mb-1.5 font-mono">
                   Your Name
                 </label>
                 <input
@@ -193,11 +192,11 @@ export default function Contact() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Alex Rivera"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.03] border border-white/[0.08] text-sm text-white placeholder-gray-600 focus:outline-none focus:border-accent/50 transition-colors"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.03] border border-white/[0.08] text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-white/25 transition-colors"
                 />
               </div>
               <div>
-                <label htmlFor="contact-email" className="block text-xs text-gray-400 mb-1.5 font-mono">
+                <label htmlFor="contact-email" className="block text-xs text-zinc-400 mb-1.5 font-mono">
                   Your Email
                 </label>
                 <input
@@ -206,13 +205,13 @@ export default function Contact() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="alex@company.com"
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.03] border border-white/[0.08] text-sm text-white placeholder-gray-600 focus:outline-none focus:border-accent/50 transition-colors"
+                  className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.03] border border-white/[0.08] text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-white/25 transition-colors"
                 />
               </div>
             </div>
 
             <div className="mb-5">
-              <label htmlFor="contact-message" className="block text-xs text-gray-400 mb-1.5 font-mono">
+              <label htmlFor="contact-message" className="block text-xs text-zinc-400 mb-1.5 font-mono">
                 What are we building? *
               </label>
               <textarea
@@ -222,19 +221,19 @@ export default function Contact() {
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Tell me about your product idea, timeline, or goals..."
-                className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.03] border border-white/[0.08] text-sm text-white placeholder-gray-600 focus:outline-none focus:border-accent/50 transition-colors resize-none"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.03] border border-white/[0.08] text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-white/25 transition-colors resize-none"
               />
             </div>
 
             <div className="flex items-center justify-between gap-4">
-              <span className="text-xs text-gray-500">
+              <span className="text-xs text-zinc-500">
                 {submitted
                   ? "Opening your email client with the brief..."
                   : `Or email directly at ${profile.email}`}
               </span>
               <button
                 type="submit"
-                className="px-6 py-2.5 rounded-full bg-accent hover:bg-accent-light text-white text-sm font-medium transition-all duration-200 active:scale-95 cursor-pointer shrink-0"
+                className="px-6 py-2.5 rounded-full bg-white hover:bg-zinc-200 text-zinc-950 text-sm font-medium transition-all duration-200 active:scale-95 cursor-pointer shrink-0"
               >
                 Send Message &rarr;
               </button>

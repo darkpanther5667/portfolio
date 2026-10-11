@@ -6,7 +6,6 @@ import { profile } from "@/lib/profile";
 import Reveal from "./Reveal";
 import dynamic from "next/dynamic";
 
-const Workspace3D = dynamic(() => import("./Workspace3D"), { ssr: false });
 const GitHubActivity = dynamic(() => import("./GitHubActivity"), { ssr: false });
 
 const staggerContainer = {
@@ -69,21 +68,19 @@ export default function About() {
 
   return (
     <section id="about" className="section-deferred py-16 sm:py-24 md:py-32 px-5 sm:px-6 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/[0.02] to-transparent pointer-events-none" />
-
       <div className="max-w-6xl mx-auto relative">
         <Reveal>
           <div className="mb-14 md:mb-16">
-            <span className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-3 block">
+            <span className="text-xs font-mono uppercase tracking-[0.2em] text-zinc-500 mb-3 block">
               About
             </span>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-5 leading-[1.1]">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-[-0.03em] mb-5 leading-[1.08] text-white">
               About{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-light">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 via-indigo-200 to-zinc-500">
                 {profile.name}
               </span>
             </h2>
-            <p className="text-gray-400 text-lg max-w-3xl leading-relaxed">
+            <p className="text-zinc-400 text-lg max-w-3xl leading-relaxed">
               I&apos;m {profile.name}, focused on building modern web products, AI tools,
               and polished experiences that feel useful from the first interaction.
             </p>
@@ -92,12 +89,12 @@ export default function About() {
 
         <Reveal>
           <div className="glass-hover rounded-2xl p-8 mb-14 md:mb-16">
-            <h3 className="text-xl font-semibold mb-4">What I Do</h3>
-            <div className="grid md:grid-cols-2 gap-6 text-gray-400 text-sm leading-relaxed">
+            <h3 className="text-xl font-semibold text-white mb-4 tracking-tight">What I Do</h3>
+            <div className="grid md:grid-cols-2 gap-6 text-zinc-400 text-sm leading-relaxed">
               <div>
                 <p className="mb-3">
                   I design, build, and deploy modern web applications with a product-first mindset.
-                  My stack centers on <strong className="text-gray-300">React, Next.js, TypeScript, and Node.js</strong>,
+                  My stack centers on <strong className="text-zinc-200 font-medium">React, Next.js, TypeScript, and Node.js</strong>,
                   with deep experience in AI integrations using OpenAI and GPT-4o-mini.
                 </p>
                 <p>
@@ -120,7 +117,7 @@ export default function About() {
         </Reveal>
 
         <div className="relative">
-          <div className="absolute left-[13px] md:left-[17px] top-1 bottom-0 w-px bg-gradient-to-b from-accent/50 via-accent/20 to-transparent" />
+          <div className="absolute left-[13px] md:left-[17px] top-1 bottom-0 w-px bg-gradient-to-b from-white/30 via-white/10 to-transparent" />
 
           <motion.div
             variants={staggerContainer}
@@ -135,18 +132,18 @@ export default function About() {
                 variants={staggerItem}
                 className="relative pl-12 md:pl-16"
               >
-                <div className="absolute left-0 md:left-1 top-0.5 w-[26px] h-[26px] md:w-[34px] md:h-[34px] rounded-full border-[3px] border-black z-10 flex items-center justify-center bg-accent">
-                  <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-white" />
+                <div className="absolute left-0 md:left-1 top-0.5 w-[26px] h-[26px] md:w-[34px] md:h-[34px] rounded-full border border-white/20 z-10 flex items-center justify-center bg-[#09090b]">
+                  <div className="w-2 h-2 rounded-full bg-white" />
                 </div>
 
-                <div className="glass-hover rounded-xl p-5 md:p-6">
-                  <span className="inline-block px-3 py-1 rounded-full text-xs font-mono mb-3 bg-white/[0.04] text-accent border border-white/[0.06]">
+                <div className="glass-hover rounded-2xl p-5 md:p-6">
+                  <span className="inline-block px-3 py-1 rounded-full text-xs font-mono mb-3 bg-white/[0.04] text-zinc-300 border border-white/[0.08]">
                     {item.year}
                   </span>
-                  <h3 className="text-lg md:text-xl font-semibold mt-1 mb-2 text-white">
+                  <h3 className="text-lg md:text-xl font-semibold mt-1 mb-2 text-white tracking-tight">
                     {item.title}
                   </h3>
-                  <p className="text-gray-400 text-sm leading-relaxed">
+                  <p className="text-zinc-400 text-sm leading-relaxed">
                     {item.description}
                   </p>
                 </div>
@@ -156,13 +153,6 @@ export default function About() {
         </div>
 
         <div ref={heavyRef}>
-          <Reveal>
-            <div className="mt-12 sm:mt-16">
-              <h3 className="text-xl font-semibold mb-6 text-center">My Workspace</h3>
-              {loadHeavy && <Workspace3D />}
-            </div>
-          </Reveal>
-
           <div className="mt-12 sm:mt-16">
             {loadHeavy && <GitHubActivity />}
           </div>

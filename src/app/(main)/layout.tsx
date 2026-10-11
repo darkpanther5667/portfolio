@@ -7,10 +7,6 @@ import Footer from "@/components/Footer";
 import ScrollBackgroundShift from "@/components/ScrollBackgroundShift";
 import SmoothScroll, { ScrollProgress } from "@/components/SmoothScroll";
 
-const CustomCursor = dynamic(
-  () => import("@/components/CustomCursor"),
-  { ssr: false }
-);
 const Terminal = dynamic(() => import("@/components/Terminal"), {
   ssr: false,
 });
@@ -40,7 +36,6 @@ export default function MainLayout({
 
   return (
     <>
-      {idleReady && <CustomCursor />}
       <ScrollProgress />
       <ScrollBackgroundShift />
       <Navbar />

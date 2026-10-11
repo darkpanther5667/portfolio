@@ -39,18 +39,16 @@ const reasons = [
 export default function WhyMe() {
   return (
     <section id="why-me" className="section-deferred py-16 sm:py-24 md:py-28 px-5 sm:px-6 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/[0.01] to-transparent pointer-events-none" />
-
       <div className="max-w-6xl mx-auto">
         <Reveal>
           <div className="mb-12 md:mb-14 text-center">
-            <span className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-3 block">
+            <span className="text-xs font-mono uppercase tracking-[0.2em] text-zinc-500 mb-3 block">
               Proof
             </span>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1]">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-[-0.03em] leading-[1.08] text-white">
               Why work with{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-light">
-                {profile.name}
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 via-indigo-200 to-zinc-500">
+                {profile.name}.
               </span>
             </h2>
           </div>
@@ -69,11 +67,11 @@ export default function WhyMe() {
               variants={staggerItem}
               className="glass-hover rounded-2xl p-6 md:p-7"
             >
-              <div className="w-8 h-8 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center mb-4">
-                <span className="text-accent text-sm font-mono font-bold">{String(index + 1).padStart(2, "0")}</span>
+              <div className="w-8 h-8 rounded-full bg-white/[0.04] border border-white/[0.08] flex items-center justify-center mb-4">
+                <span className="text-zinc-200 text-xs font-mono font-semibold">{String(index + 1).padStart(2, "0")}</span>
               </div>
-              <h3 className="text-lg font-semibold text-white mb-2">{r.title}</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">{r.desc}</p>
+              <h3 className="text-lg font-semibold text-white mb-2 tracking-tight">{r.title}</h3>
+              <p className="text-zinc-400 text-sm leading-relaxed">{r.desc}</p>
             </motion.div>
           ))}
         </motion.div>

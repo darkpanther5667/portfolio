@@ -3,15 +3,13 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
-import AnimatedLogo from "./AnimatedLogo";
 
 const navLinks = [
-  { label: "Projects", href: "#projects" },
+  { label: "Work", href: "#projects" },
   { label: "Services", href: "#services" },
   { label: "Process", href: "#process" },
   { label: "About", href: "#about" },
   { label: "Blog", href: "/blog" },
-  { label: "Contact", href: "#contact" },
 ];
 
 export default function Navbar() {
@@ -20,18 +18,14 @@ export default function Navbar() {
 
   useEffect(() => {
     const onScroll = () => {
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 24);
     };
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   useEffect(() => {
-    if (mobileOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
@@ -39,25 +33,28 @@ export default function Navbar() {
 
   return (
     <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-500 safe-top",
-        scrolled
-          ? "bg-black/60 backdrop-blur-md md:backdrop-blur-xl border-b border-white/[0.04]"
-          : "bg-transparent"
-      )}
+      initial={{ y: -40, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      className="fixed top-4 left-0 right-0 z-50 px-4 sm:px-6 pointer-events-none safe-top"
     >
-      <nav className="max-w-7xl mx-auto px-5 sm:px-6 h-14 sm:h-16 flex items-center justify-between">
+      <nav
+        className={cn(
+          "pointer-events-auto max-w-4xl mx-auto h-12 sm:h-13 px-4 sm:px-5 rounded-full flex items-center justify-between transition-all duration-300",
+          scrolled
+            ? "bg-zinc-950/80 backdrop-blur-xl border border-white/[0.09] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.12),0_12px_32px_-8px_rgba(0,0,0,0.65)]"
+            : "bg-zinc-900/45 backdrop-blur-md border border-white/[0.06] shadow-[inset_0_1px_0_0_rgba(255,255,255,0.08)]"
+        )}
+      >
         <a
           href="#hero"
-          className="flex items-center gap-2 group"
+          className="flex items-center gap-2.5 group"
         >
-          <AnimatedLogo className="w-8 h-6 text-accent" />
-          <span className="text-base sm:text-lg font-semibold tracking-tight text-white/80 group-hover:text-white transition-colors hidden sm:block">
-            Manas
-            <span className="text-accent">.</span>
+          <span className="w-6 h-6 rounded-full bg-gradient-to-b from-white to-zinc-400 text-zinc-950 text-xs font-bold flex items-center justify-center tracking-tighter shadow-sm">
+            M
+          </span>
+          <span className="text-sm font-medium tracking-tight text-zinc-100 group-hover:text-white transition-colors">
+            Manas Agrawal
           </span>
         </a>
 
@@ -66,33 +63,42 @@ export default function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="relative px-4 py-2 text-sm text-gray-400 hover:text-white transition-colors rounded-full hover:bg-white/[0.04] touch-feedback"
+              className="px-3.5 py-1.5 text-xs font-medium text-zinc-400 hover:text-zinc-100 transition-colors rounded-full hover:bg-white/[0.05]"
             >
               {link.label}
             </a>
           ))}
         </div>
 
+        <div className="hidden md:flex items-center gap-2">
+          <a
+            href="#contact"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-medium bg-white text-zinc-950 hover:bg-zinc-200 transition-colors shadow-sm"
+          >
+            <span>Get in touch</span>
+          </a>
+        </div>
+
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden relative w-9 h-9 flex items-center justify-center rounded-full glass touch-feedback"
+          className="md:hidden relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/[0.06] touch-feedback"
           aria-label="Toggle menu"
         >
-          <div className="flex flex-col gap-[5px]">
+          <div className="flex flex-col gap-[4px]">
             <motion.span
-              animate={mobileOpen ? { rotate: 45, y: 6.5 } : { rotate: 0, y: 0 }}
+              animate={mobileOpen ? { rotate: 45, y: 5.5 } : { rotate: 0, y: 0 }}
               transition={{ duration: 0.2, ease: "easeOut" }}
-              className="block w-4 h-[1.5px] bg-gray-300 origin-center"
+              className="block w-4 h-[1.5px] bg-zinc-200 origin-center"
             />
             <motion.span
               animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }}
               transition={{ duration: 0.15 }}
-              className="block w-4 h-[1.5px] bg-gray-300"
+              className="block w-4 h-[1.5px] bg-zinc-200"
             />
             <motion.span
-              animate={mobileOpen ? { rotate: -45, y: -6.5 } : { rotate: 0, y: 0 }}
+              animate={mobileOpen ? { rotate: -45, y: -5.5 } : { rotate: 0, y: 0 }}
               transition={{ duration: 0.2, ease: "easeOut" }}
-              className="block w-4 h-[1.5px] bg-gray-300 origin-center"
+              className="block w-4 h-[1.5px] bg-zinc-200 origin-center"
             />
           </div>
         </button>
@@ -101,25 +107,22 @@ export default function Navbar() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="md:hidden bg-black/80 backdrop-blur-lg md:backdrop-blur-2xl border-b border-white/[0.04] overflow-hidden safe-bottom"
+            initial={{ opacity: 0, y: -8, scale: 0.98 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -8, scale: 0.98 }}
+            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="pointer-events-auto md:hidden mt-2 max-w-4xl mx-auto rounded-2xl bg-zinc-950/95 backdrop-blur-xl border border-white/[0.08] overflow-hidden shadow-2xl"
           >
-            <div className="px-5 py-6 flex flex-col gap-1">
-              {navLinks.map((link, i) => (
-                <motion.a
+            <div className="p-3 flex flex-col gap-1">
+              {[...navLinks, { label: "Contact", href: "#contact" }].map((link) => (
+                <a
                   key={link.href}
                   href={link.href}
                   onClick={() => setMobileOpen(false)}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05, duration: 0.2 }}
-                  className="text-sm text-gray-400 hover:text-white transition-colors py-3 px-4 rounded-xl hover:bg-white/[0.04] touch-feedback"
+                  className="text-sm text-zinc-300 hover:text-white transition-colors py-2.5 px-4 rounded-xl hover:bg-white/[0.05]"
                 >
                   {link.label}
-                </motion.a>
+                </a>
               ))}
             </div>
           </motion.div>

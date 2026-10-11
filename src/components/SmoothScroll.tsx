@@ -12,10 +12,10 @@ export function ScrollProgress() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-accent via-accent-light to-accent z-[9999] origin-left"
+      className="fixed top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-zinc-500 via-white to-indigo-400 z-[9999] origin-left"
       style={{
         scaleX: smoothProgress,
-        opacity: useTransform(smoothProgress, [0, 0.03, 0.97, 1], [0, 1, 1, 0]),
+        opacity: useTransform(smoothProgress, [0, 0.03, 0.97, 1], [0, 0.85, 0.85, 0]),
       }}
     />
   );

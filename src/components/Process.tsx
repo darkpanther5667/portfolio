@@ -46,18 +46,16 @@ const steps = [
 export default function Process() {
   return (
     <section id="process" className="section-deferred py-16 sm:py-24 md:py-28 px-5 sm:px-6 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-accent/[0.01] to-transparent pointer-events-none" />
-
       <div className="max-w-6xl mx-auto">
         <Reveal>
           <div className="mb-12 md:mb-14">
-            <span className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-3 block">
+            <span className="text-xs font-mono uppercase tracking-[0.2em] text-zinc-500 mb-3 block">
               How I Work
             </span>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1]">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-[-0.03em] leading-[1.08] text-white">
               From idea to{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-light">
-                production
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 via-indigo-200 to-zinc-500">
+                production.
               </span>
             </h2>
           </div>
@@ -70,18 +68,18 @@ export default function Process() {
           viewport={{ once: true, margin: "-80px" }}
           className="grid md:grid-cols-2 gap-5 md:gap-6"
         >
-          {steps.map((s, i) => (
+          {steps.map((s) => (
             <motion.div
               key={s.step}
               variants={staggerItem}
-              className="glass-hover rounded-xl p-6 md:p-7 border border-white/[0.04] group flex gap-5"
+              className="glass-hover rounded-2xl p-6 md:p-7 border border-white/[0.06] group flex gap-5"
             >
-              <span className="text-3xl md:text-4xl font-bold text-accent/20 group-hover:text-accent/40 transition-colors font-mono leading-none shrink-0">
+              <span className="text-3xl md:text-4xl font-bold text-zinc-700 group-hover:text-zinc-400 transition-colors font-mono leading-none shrink-0">
                 {s.step}
               </span>
               <div>
-                <h3 className="text-lg font-semibold text-white mb-2">{s.title}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">{s.desc}</p>
+                <h3 className="text-lg font-semibold text-white mb-2 tracking-tight">{s.title}</h3>
+                <p className="text-zinc-400 text-sm leading-relaxed">{s.desc}</p>
               </div>
             </motion.div>
           ))}

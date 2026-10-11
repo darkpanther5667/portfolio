@@ -263,7 +263,7 @@ function ProjectCard({ project }: { project: FeaturedProject }) {
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="relative px-4 sm:px-5 py-2 sm:py-2.5 bg-accent text-white text-xs sm:text-sm font-medium rounded-full overflow-hidden transition-all duration-300 hover:shadow-[0_0_25px_-5px_rgba(59,130,246,0.4)] active:scale-95"
+              className="relative px-4 sm:px-5 py-2 sm:py-2.5 bg-white hover:bg-zinc-200 text-zinc-950 text-xs sm:text-sm font-medium rounded-full overflow-hidden transition-all duration-200 shadow-[0_0_25px_-5px_rgba(255,255,255,0.2)] active:scale-95"
             >
               Live Demo
             </a>
@@ -271,7 +271,7 @@ function ProjectCard({ project }: { project: FeaturedProject }) {
             {project.internalAppUrl && (
               <Link
                 href={project.internalAppUrl}
-                className="px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium bg-accent/10 hover:bg-accent/20 text-accent-light border border-accent/25 transition-colors"
+                className="px-4 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium bg-indigo-500/10 hover:bg-indigo-500/20 text-indigo-300 border border-indigo-500/25 transition-colors"
               >
                 Try Interactive App
               </Link>
@@ -281,7 +281,7 @@ function ProjectCard({ project }: { project: FeaturedProject }) {
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 sm:px-5 py-2 sm:py-2.5 glass text-gray-300 text-xs sm:text-sm font-medium rounded-full transition-all duration-300 hover:bg-white/10 hover:text-white active:scale-95 border border-white/10"
+              className="px-4 sm:px-5 py-2 sm:py-2.5 glass text-zinc-300 text-xs sm:text-sm font-medium rounded-full transition-all duration-300 hover:bg-white/[0.08] hover:text-white active:scale-95 border border-white/10"
             >
               <span className="flex items-center gap-1.5">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -300,21 +300,21 @@ function ProjectCard({ project }: { project: FeaturedProject }) {
 export default function Projects() {
   return (
     <section id="projects" className="section-deferred py-16 sm:py-24 md:py-32 px-5 sm:px-6 relative">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-accent/30 to-transparent" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-px bg-gradient-to-r from-transparent via-white/15 to-transparent" />
 
       <div className="max-w-6xl mx-auto">
         <Reveal>
           <div className="mb-12 md:mb-16">
-            <span className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-3 block">
+            <span className="text-xs font-mono uppercase tracking-[0.2em] text-zinc-500 mb-3 block">
               Featured Work
             </span>
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1]">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-[-0.03em] leading-[1.08] text-white">
               Shipped products,{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-light">
-                real impact
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-200 via-indigo-200 to-zinc-500">
+                real impact.
               </span>
             </h2>
-            <p className="text-gray-500 text-base mt-3 max-w-2xl">
+            <p className="text-zinc-400 text-base mt-3 max-w-2xl">
               Production web applications and AI tools — explore live demos, interactive apps, or full engineering case studies.
             </p>
           </div>

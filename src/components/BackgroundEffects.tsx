@@ -3,42 +3,35 @@
 export default function BackgroundEffects() {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Top architectural aurora beam (Linear / Raycast style) */}
       <div
-        className="absolute -bottom-1/4 -right-1/4 w-[600px] sm:w-[900px] h-[600px] sm:h-[900px] rounded-full animate-pulse-glow"
+        className="absolute -top-[280px] left-1/2 -translate-x-1/2 w-[900px] md:w-[1300px] h-[650px] rounded-full"
         style={{
           background:
-            "radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%)",
-        }}
-      />
-      <div
-        className="hidden md:block absolute -top-1/4 -right-1/4 w-[700px] h-[700px] rounded-full animate-pulse-glow"
-        style={{
-          animationDelay: "-2s",
-          background:
-            "radial-gradient(circle, rgba(168, 85, 247, 0.06) 0%, transparent 70%)",
-        }}
-      />
-      <div
-        className="absolute -top-1/3 left-0 w-[350px] sm:w-[500px] h-[350px] sm:h-[500px] rounded-full"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 70%)",
-        }}
-      />
-      <div
-        className="hidden md:block absolute -bottom-1/3 left-1/4 w-[400px] h-[400px] rounded-full"
-        style={{
-          background:
-            "radial-gradient(circle, rgba(96, 165, 250, 0.05) 0%, transparent 70%)",
+            "radial-gradient(ellipse at 50% 0%, rgba(255, 255, 255, 0.09) 0%, rgba(99, 102, 241, 0.08) 38%, rgba(99, 102, 241, 0.02) 65%, transparent 80%)",
         }}
       />
 
+      {/* Subtle secondary warm-indigo ambient glow */}
       <div
-        className="hidden md:block absolute inset-0 opacity-[0.012]"
+        className="hidden md:block absolute top-[15%] left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full"
+        style={{
+          background:
+            "radial-gradient(ellipse at center, rgba(165, 180, 252, 0.045) 0%, transparent 70%)",
+        }}
+      />
+
+      {/* Radially masked fine architectural grid */}
+      <div
+        className="absolute inset-0 opacity-[0.35]"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)",
-          backgroundSize: "64px 64px",
+            "linear-gradient(to right, rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.035) 1px, transparent 1px)",
+          backgroundSize: "56px 56px",
+          maskImage:
+            "radial-gradient(ellipse 70% 55% at 50% 25%, #000 20%, transparent 100%)",
+          WebkitMaskImage:
+            "radial-gradient(ellipse 70% 55% at 50% 25%, #000 20%, transparent 100%)",
         }}
       />
     </div>
